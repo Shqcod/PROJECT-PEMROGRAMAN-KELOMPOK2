@@ -1,2 +1,2 @@
 projectuaslabpemrograman:
-	gcc main.c miscellaneous.c header.h -o elibrary && ./elibrary
+	gcc main.c menu.c miscellaneous.c header.h -o elibrary && ./elibrary

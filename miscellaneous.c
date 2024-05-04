@@ -308,8 +308,8 @@ void loading(int screen_width)
         enter(half_screen_width);
     }
 
-    printin_center("%*s", "\033[1;33mLoading", 130, 10, "TRUE");
-    printf("%*s", ((130 - 10) / 2) + 3, " ");
+    printin_center("%*s", "\033[1;33mLoading", 130, 10 - 2, "TRUE");
+    printf("%*s", ((130 - 10) / 2) + 1, " ");
 
     for (int loading = 1; loading <= 10; loading++)
     {

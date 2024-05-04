@@ -14,37 +14,12 @@ int main(void)
     system("clear");
     loading(35);
 
-    enter(16);
-    printin_center("%*s", "\033[1;30;43m+[ WELCOME TO E-LIBRARY ]+", 130, 10 + 2, "FALSE");
-    printf("\033[0m");
-    enter(2);
-    printin_center("%*s", "\033[1;33mAccess the library anywhere and anytime", 130, 10, "FALSE");
-    printf("\033[0m");
-    enter(16);
+    welcome_screen();
 
     timesleep(3, "FALSE");
     system("clear");
 
-    hyphen("\033[1;33m", 130, 10, "TRUE");
-    printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
-    hyphen("\033[1;33m", 130, 10, "TRUE");
-
-    printf("\033[1;33mWelcome to E-Library \n");
-    printf("\033[0m");
-    printf("\033[33mE-Library is a digital library platform. \nYou can search books, borrow books, and return books.");
-    enter(2);
-    printf("\033[1;33mPlease log in to continue");
-    enter(2);
-    printf("\033[0m");
-
-    printf("\033[1;33mLog in as: \n");
-    printf("\033[0m");
-    printf("\033[33m1. Administrator (full access) \n");
-    printf("\033[33m2. User (limited access) \n");
-    printf("\033[0m");
-    enter(21);
-
-    hyphen("\033[1;33m", 130, 10, "TRUE");
+    home_screen();
 
     int option = 0, numof_trials = 0;
 
@@ -57,6 +32,8 @@ option:
 
     if (option == 1)
     {
+        numof_trials = 0;
+
         system("clear");
         loading(35);
 
@@ -72,18 +49,109 @@ option:
         printf("\033[33mPassword\t: ");
         scanf("%s", password);
 
-        enter(27);
+        enter(28);
         hyphen("\033[1;33m", 130, 10, "TRUE");
         printf("\033[0m");
-        timesleep(1, "FALSE");
 
-        system("clear");
-        loading(35);
+        if (strcmp(account_id, "admin") == 0 && strcmp(password, "admin123") == 0)
+        {
+            numof_trials = 0;
+
+            system("clear");
+            loading(35);
+
+            hyphen("\033[1;33m", 130, 10, "TRUE");
+            printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
+            hyphen("\033[1;33m", 130, 10, "TRUE");
+
+            admin_menu();
+            enter(25);
+
+            hyphen("\033[1;33m", 130, 10, "TRUE");
+
+        admin_option:
+            printf("\033[1;30;43m[1/2/3/4]");
+            printf("\033[0m");
+            printf("\033[33m: ");
+            scanf("%d", &option);
+            printf("\033[0m");
+
+            if (option >= 1 && option <= 3)
+            {
+                numof_trials = 0;
+
+                system("clear");
+                loading(35);
+
+                return EXIT_SUCCESS;
+            }
+            else if (option == 4)
+            {
+                system("clear");
+                loading(35);
+
+                goodbye_screen();
+
+                timesleep(2, "FALSE");
+                system("clear");
+
+                return EXIT_SUCCESS;
+            }
+            else
+            {
+                numof_trials++;
+
+                if (numof_trials < 3)
+                {
+                    option_invalid();
+
+                    goto admin_option;
+                }
+                else
+                {
+                    option_end();
+
+                    timesleep(3, "FALSE");
+                    system("clear");
+
+                    return EXIT_FAILURE;
+                }
+            }
+        }
+        else
+        {
+            numof_trials++;
+
+            system("clear");
+
+            if (numof_trials < 3)
+            {
+                login_invalid();
+
+                timesleep(2, "FALSE");
+                system("clear");
+
+                goto admin_login;
+            }
+            else
+            {
+                loading(35);
+
+                login_end();
+
+                timesleep(3, "FALSE");
+                system("clear");
+
+                return EXIT_FAILURE;
+            }
+        }
 
         return EXIT_SUCCESS;
     }
     else if (option == 2)
     {
+        numof_trials = 0;
+
         system("clear");
         loading(35);
 
@@ -94,18 +162,107 @@ option:
 
         printf("\033[1;33mUser log in \n");
         printf("\033[0m");
-        printf("\033[33mUser ID\t: ");
+        printf("\033[33mUser ID\t\t: ");
         scanf("%s", account_id);
         printf("\033[33mPassword\t: ");
         scanf("%s", password);
 
-        enter(27);
+        enter(28);
         hyphen("\033[1;33m", 130, 10, "TRUE");
         printf("\033[0m");
-        timesleep(1, "FALSE");
 
-        system("clear");
-        loading(35);
+        if (strcmp(account_id, "user") == 0 && strcmp(password, "user123") == 0)
+        {
+            numof_trials = 0;
+
+            system("clear");
+            loading(35);
+
+            hyphen("\033[1;33m", 130, 10, "TRUE");
+            printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
+            hyphen("\033[1;33m", 130, 10, "TRUE");
+
+            user_menu();
+            enter(24);
+
+            hyphen("\033[1;33m", 130, 10, "TRUE");
+
+        user_option:
+            printf("\033[1;30;43m[1/2/3/4/5]");
+            printf("\033[0m");
+            printf("\033[33m: ");
+            scanf("%d", &option);
+            printf("\033[0m");
+
+            if (option >= 1 && option <= 4)
+            {
+                numof_trials = 0;
+
+                system("clear");
+                loading(35);
+
+                return EXIT_SUCCESS;
+            }
+            else if (option == 5)
+            {
+                system("clear");
+                loading(35);
+
+                goodbye_screen();
+
+                timesleep(2, "FALSE");
+                system("clear");
+
+                return EXIT_SUCCESS;
+            }
+            else
+            {
+                numof_trials++;
+
+                if (numof_trials < 3)
+                {
+                    option_invalid();
+
+                    goto user_option;
+                }
+                else
+                {
+                    option_end();
+
+                    timesleep(3, "FALSE");
+                    system("clear");
+
+                    return EXIT_FAILURE;
+                }
+            }
+        }
+        else
+        {
+            numof_trials++;
+
+            system("clear");
+
+            if (numof_trials < 3)
+            {
+                login_invalid();
+
+                timesleep(2, "FALSE");
+                system("clear");
+
+                goto user_login;
+            }
+            else
+            {
+                loading(35);
+
+                login_end();
+
+                timesleep(3, "FALSE");
+                system("clear");
+
+                return EXIT_FAILURE;
+            }
+        }
 
         return EXIT_SUCCESS;
     }
@@ -115,19 +272,13 @@ option:
 
         if (numof_trials < 3)
         {
-            printf("\033[1;33m-> ");
-            printf("\033[0m");
-            printf("\033[33mInvalid option. Please try again!");
-            printf("\033[0m");
-            enter(1);
+            option_invalid();
 
             goto option;
         }
         else
         {
-            printf("\033[33mInvalid option 3 times. Try again later! \nThe program will close in 3 seconds");
-            printf("\033[0m");
-            enter(1);
+            option_end();
 
             timesleep(3, "FALSE");
             system("clear");
