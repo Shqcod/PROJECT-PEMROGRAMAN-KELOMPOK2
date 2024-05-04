@@ -1,0 +1,150 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Definisi struct untuk data buku
+struct Buku {
+    unsigned int idBuku;
+    char judul[100];
+    char penulis[50];
+    unsigned int jumlahHalaman;
+    unsigned int tahunTerbit;
+    unsigned int jumlahBukuTersedia;
+};
+
+// Fungsi untuk menampilkan menu admin
+void tampilkanMenuAdmin() {
+    printf("=== Menu Admin ===\n");
+    printf("1. Tambah Buku\n");
+    printf("2. Hapus Buku\n");
+    printf("3. Edit Buku\n");
+    printf("4. Keluar\n");
+    printf("Pilih menu: ");
+}
+
+// Fungsi untuk menampilkan menu user
+void tampilkanMenuUser() {
+    printf("=== Menu User ===\n");
+    printf("1. Lihat Buku yang Tersedia\n");
+    printf("2. Pinjam Buku\n");
+    printf("3. Lihat Buku yang Dipinjam\n");
+    printf("4. Kembalikan Buku\n");
+    printf("5. Keluar\n");
+    printf("Pilih menu: ");
+}
+
+// Fungsi untuk menambah buku
+void tambahBuku(struct Buku *buku, int *jumlahBuku) {
+    printf("Masukkan ID Buku: ");
+    scanf("%u", &buku[*jumlahBuku].idBuku);
+
+    printf("Masukkan Judul Buku: ");
+    scanf(" %[^\n]s", buku[*jumlahBuku].judul);
+
+    printf("Masukkan Nama Penulis: ");
+    scanf(" %[^\n]s", buku[*jumlahBuku].penulis);
+
+    printf("Masukkan Jumlah Halaman: ");
+    scanf("%u", &buku[*jumlahBuku].jumlahHalaman);
+
+    printf("Masukkan Tahun Terbit: ");
+    scanf("%u", &buku[*jumlahBuku].tahunTerbit);
+    
+    printf("Masukkan Jumlah Buku Tersedia: ");
+    scanf("%u", &buku[*jumlahBuku].jumlahBukuTersedia);
+    (*jumlahBuku)++;
+}
+
+// Fungsi untuk mencari buku dengan ID
+int cariIDBuku(struct Buku *buku, int jumlahBuku, unsigned int id) {
+    for (int i = 0; i < jumlahBuku; i++) {
+        if (buku[i].idBuku == id) {
+            return i;
+        }
+    }
+    return -1; // -1 jika buku tidak ditemukan
+}
+
+int main() {
+    struct Buku buku[100];
+    int jumlahBuku = 0;
+    int isLoggedIn = 0; // 0 untuk belum login, 1 untuk admin, 2 untuk user
+    int role; // Untuk menentukan admin atau user
+    unsigned int idCari;
+    int indeksCari;
+
+    while (1) {
+        if (!isLoggedIn) {
+            char username[20];
+            char password[20];
+
+            printf("Masukkan username: ");
+            scanf("%s", username);
+
+            printf("Masukkan password: ");
+            scanf("%s", password);
+
+            if (strcmp(username, "admin") == 0 && strcmp(password, "admin123") == 0) {
+                isLoggedIn = 1;
+                role = 1;
+            } else if (strcmp(username, "user") == 0 && strcmp(password, "user123") == 0) {
+                isLoggedIn = 1;
+                role = 2;
+            } else {
+                printf("Username atau password salah.\n");
+            }
+        } else {
+            if (role == 1) { // Admin
+                int pilihan;
+                tampilkanMenuAdmin();
+                scanf("%d", &pilihan);
+                switch (pilihan) {
+                    case 1:
+                        tambahBuku(buku, &jumlahBuku);
+                        break;
+                    case 2:
+                        // Fungsi untuk menghapus buku
+                        break;
+                    case 3:
+                        // Fungsi untuk edit buku
+                        break;
+                    case 4:
+                        isLoggedIn = 0;
+                        break;
+                    default:
+                        printf("Pilihan tidak valid.\n");
+                }
+            } else if (role == 2) { // User
+                int pilihan;
+                tampilkanMenuUser();
+                scanf("%d", &pilihan);
+                switch (pilihan) {
+                    // menu user
+                    case 1:
+                        printf("Daftar Buku Tersedia:\n");
+                        for (int i = 0; i < jumlahBuku; i++) {
+                            printf("ID: %u, Judul: %s, Penulis: %s, Tersedia: %u\n",
+                                   buku[i].idBuku, buku[i].judul, buku[i].penulis, buku[i].jumlahBukuTersedia);
+                        }
+                        break;
+                    case 2:
+                        // Fungsi peminjaman buku
+                        break;
+                    case 3:
+                        // Fungsi lihat buku yang dipinjam
+                        break;
+                    case 4:
+                        // Fungsi pengembalian buku
+                        break;
+                    case 5:
+                        isLoggedIn = 0;
+                        break;
+                    default:
+                        printf("Pilihan tidak valid.\n");
+                }
+            }
+        }
+    }
+
+    return 0;
+}
