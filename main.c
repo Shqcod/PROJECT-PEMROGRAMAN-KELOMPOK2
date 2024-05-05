@@ -19,6 +19,7 @@ int main(void)
     timesleep(3, "FALSE");
     system("clear");
 
+home:
     home_screen();
 
     int option = 0, numof_trials = 0;
@@ -70,7 +71,7 @@ option:
             hyphen("\033[1;33m", 130, 10, "TRUE");
 
         admin_option:
-            printf("\033[1;30;43m[1/2/3/4]");
+            printf("\033[1;30;43m[1/2/3/4/5]");
             printf("\033[0m");
             printf("\033[33m: ");
             scanf("%d", &option);
@@ -86,6 +87,13 @@ option:
                 return EXIT_SUCCESS;
             }
             else if (option == 4)
+            {
+                system("clear");
+                loading(35);
+
+                goto home;
+            }
+            else if (option == 5)
             {
                 system("clear");
                 loading(35);
@@ -188,7 +196,7 @@ option:
             hyphen("\033[1;33m", 130, 10, "TRUE");
 
         user_option:
-            printf("\033[1;30;43m[1/2/3/4/5]");
+            printf("\033[1;30;43m[1/2/3/4/5/6]");
             printf("\033[0m");
             printf("\033[33m: ");
             scanf("%d", &option);
@@ -204,6 +212,13 @@ option:
                 return EXIT_SUCCESS;
             }
             else if (option == 5)
+            {
+                system("clear");
+                loading(35);
+
+                goto home;
+            }
+            else if (option == 6)
             {
                 system("clear");
                 loading(35);

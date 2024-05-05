@@ -43,10 +43,11 @@ void admin_menu()
 {
     printf("\033[1;33mAdmin menu\n");
     printf("\033[0m");
-    printf("\033[33m1. Add book\n");
-    printf("\033[33m2. Delete book\n");
-    printf("\033[33m3. Modify book\n");
-    printf("\033[33m4. Exit\n");
+    printf("\033[33m1. Add books\n");
+    printf("\033[33m2. Delete books\n");
+    printf("\033[33m3. Modify books\n");
+    printf("\033[33m4. Home\n");
+    printf("\033[33m5. Exit\n");
     printf("\033[0m");
 }
 
@@ -58,8 +59,9 @@ void user_menu()
     printf("\033[33m1. Books available\n");
     printf("\033[33m2. Borrow books\n");
     printf("\033[33m3. On loan\n");
-    printf("\033[33m4. Kembalikan Buku\n");
-    printf("\033[33m5. Exit\n");
+    printf("\033[33m4. Return books\n");
+    printf("\033[33m5. Home\n");
+    printf("\033[33m6. Exit\n");
     printf("\033[0m");
 }
 
