@@ -267,9 +267,10 @@ void backspace(int backspace_length)
 }
 
 // time sleep function
-void timesleep(float limit, char *print_escape)
+void timesleep(float limit, char *print_escape, char *power_arg)
 {
     float seconds = 0;
+    int power;
     clock_t start, time;
 
     start = clock();
@@ -277,7 +278,19 @@ void timesleep(float limit, char *print_escape)
     while (seconds <= limit)
     {
         time = clock();
-        seconds = ((time - start) / pow(10, 6));
+
+        if (strcmp(power_arg, "WIN") == 0)
+        {
+            seconds = ((time - start) / pow(10, 3));
+        }
+        else if (strcmp(power_arg, "LINUX") == 0)
+        {
+            seconds = ((time - start) / pow(10, 6));
+        }
+        else
+        {
+            EXIT_FAILURE;
+        }
 
         if (strcmp(print_escape, "TRUE") == 0)
         {
@@ -313,7 +326,7 @@ void loading(int screen_width)
 
     for (int loading = 1; loading <= 10; loading++)
     {
-        timesleep(0.3, "TRUE");
+        timesleep(0.3, "TRUE", "LINUX");
         printf("\033[0m%*s\033[1;30;43m%s", 0, " ", " ");
         printf("\033[0m");
     }
@@ -321,4 +334,16 @@ void loading(int screen_width)
     enter(half_screen_width);
 
     system("clear");
+}
+
+void system_clear(char *clear_arg)
+{
+    if (strcmp(clear_arg, "WIN") == 0)
+    {
+        system("cls");
+    }
+    else if (strcmp(clear_arg, "LINUX") == 0)
+    {
+        system("clear");
+    }
 }

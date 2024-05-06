@@ -2,22 +2,33 @@
 #include "header.h"
 
 // main function
-int main(void)
+int main(int argc, char *argv[])
 {
-    char account_id[64], password[64];
-
     /* Resolution:
     width: 140
     height: 35
     ratio: 1:4 */
 
-    system("clear");
+    char account_id[64], password[64];
+    char win_linux[8];
+
+    if (argc == 2)
+    {
+        strcpy(win_linux, argv[1]);
+    }
+    else
+    {
+        printf("Usage: %s <WIN/LINUX> \n", argv[0]);
+        return EXIT_FAILURE;
+    }
+
+    system_clear(win_linux);
     loading(35);
 
     welcome_screen();
 
-    timesleep(3, "FALSE");
-    system("clear");
+    timesleep(3, "FALSE", win_linux);
+    system_clear(win_linux);
 
 home:
     home_screen();
@@ -35,7 +46,7 @@ option:
     {
         numof_trials = 0;
 
-        system("clear");
+        system_clear(win_linux);
         loading(35);
 
     admin_login:
@@ -58,7 +69,7 @@ option:
         {
             numof_trials = 0;
 
-            system("clear");
+            system_clear(win_linux);
             loading(35);
 
             hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -81,27 +92,27 @@ option:
             {
                 numof_trials = 0;
 
-                system("clear");
+                system_clear(win_linux);
                 loading(35);
 
                 return EXIT_SUCCESS;
             }
             else if (option == 4)
             {
-                system("clear");
+                system_clear(win_linux);
                 loading(35);
 
                 goto home;
             }
             else if (option == 5)
             {
-                system("clear");
+                system_clear(win_linux);
                 loading(35);
 
                 goodbye_screen();
 
-                timesleep(2, "FALSE");
-                system("clear");
+                timesleep(2, "FALSE", win_linux);
+                system_clear(win_linux);
 
                 return EXIT_SUCCESS;
             }
@@ -119,8 +130,8 @@ option:
                 {
                     option_end();
 
-                    timesleep(3, "FALSE");
-                    system("clear");
+                    timesleep(3, "FALSE", win_linux);
+                    system_clear(win_linux);
 
                     return EXIT_FAILURE;
                 }
@@ -130,14 +141,14 @@ option:
         {
             numof_trials++;
 
-            system("clear");
+            system_clear(win_linux);
 
             if (numof_trials < 3)
             {
                 login_invalid();
 
-                timesleep(2, "FALSE");
-                system("clear");
+                timesleep(2, "FALSE", win_linux);
+                system_clear(win_linux);
 
                 goto admin_login;
             }
@@ -147,8 +158,8 @@ option:
 
                 login_end();
 
-                timesleep(3, "FALSE");
-                system("clear");
+                timesleep(3, "FALSE", win_linux);
+                system_clear(win_linux);
 
                 return EXIT_FAILURE;
             }
@@ -160,7 +171,7 @@ option:
     {
         numof_trials = 0;
 
-        system("clear");
+        system_clear(win_linux);
         loading(35);
 
     user_login:
@@ -183,7 +194,7 @@ option:
         {
             numof_trials = 0;
 
-            system("clear");
+            system_clear(win_linux);
             loading(35);
 
             hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -206,27 +217,27 @@ option:
             {
                 numof_trials = 0;
 
-                system("clear");
+                system_clear(win_linux);
                 loading(35);
 
                 return EXIT_SUCCESS;
             }
             else if (option == 5)
             {
-                system("clear");
+                system_clear(win_linux);
                 loading(35);
 
                 goto home;
             }
             else if (option == 6)
             {
-                system("clear");
+                system_clear(win_linux);
                 loading(35);
 
                 goodbye_screen();
 
-                timesleep(2, "FALSE");
-                system("clear");
+                timesleep(2, "FALSE", win_linux);
+                system_clear(win_linux);
 
                 return EXIT_SUCCESS;
             }
@@ -244,8 +255,8 @@ option:
                 {
                     option_end();
 
-                    timesleep(3, "FALSE");
-                    system("clear");
+                    timesleep(3, "FALSE", win_linux);
+                    system_clear(win_linux);
 
                     return EXIT_FAILURE;
                 }
@@ -255,14 +266,14 @@ option:
         {
             numof_trials++;
 
-            system("clear");
+            system_clear(win_linux);
 
             if (numof_trials < 3)
             {
                 login_invalid();
 
-                timesleep(2, "FALSE");
-                system("clear");
+                timesleep(2, "FALSE", win_linux);
+                system_clear(win_linux);
 
                 goto user_login;
             }
@@ -272,8 +283,8 @@ option:
 
                 login_end();
 
-                timesleep(3, "FALSE");
-                system("clear");
+                timesleep(3, "FALSE", win_linux);
+                system_clear(win_linux);
 
                 return EXIT_FAILURE;
             }
@@ -295,8 +306,8 @@ option:
         {
             option_end();
 
-            timesleep(3, "FALSE");
-            system("clear");
+            timesleep(3, "FALSE", win_linux);
+            system_clear(win_linux);
 
             return EXIT_FAILURE;
         }
