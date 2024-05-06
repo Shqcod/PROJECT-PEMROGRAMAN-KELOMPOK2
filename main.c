@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        printf("Usage: %s <WIN/LINUX> \n", argv[0]);
+        printf("Format: %s <WIN/LINUX> \n", argv[0]);
         return EXIT_FAILURE;
     }
 
