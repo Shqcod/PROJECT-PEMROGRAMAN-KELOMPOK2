@@ -86,9 +86,6 @@ option:
             }
         }
 
-        printf("%s", account_file);
-        printf("%s", password_file);
-
         enter(28);
         hyphen("\033[1;33m", 130, 10, "TRUE");
         printf("\033[0m");
