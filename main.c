@@ -52,7 +52,7 @@ option:
         loading(35, win_linux);
 
     admin_login:
-        input_fp = fopen("admins.txt", "r");
+        input_fp = fopen("admin.txt", "r");
 
         if (input_fp == NULL)
         {
