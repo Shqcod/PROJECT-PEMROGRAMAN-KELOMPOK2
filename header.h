@@ -30,7 +30,7 @@ void enter(int row_length);
 void clear_char(int clear_length);
 void backspace(int backspace_length);
 void timesleep(float limit, char *print_escape, char *power_arg);
-void loading(int screen_width);
+void loading(int screen_width, char *arg);
 void system_clear(char *clear_arg);
 void option_invalid();
 void option_end();

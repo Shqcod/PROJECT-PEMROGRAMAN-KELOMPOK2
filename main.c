@@ -9,8 +9,10 @@ int main(int argc, char *argv[])
     height: 35
     ratio: 1:4 */
 
-    char account_id[64], password[64];
-    char win_linux[8];
+    FILE *input_fp, *output_fp;
+    char account_id[128], password[128];
+    char account_file[128], password_file[128];
+    char win_linux[8], accounts[256];
 
     if (argc == 2)
     {
@@ -23,7 +25,7 @@ int main(int argc, char *argv[])
     }
 
     system_clear(win_linux);
-    loading(35);
+    loading(35, win_linux);
 
     welcome_screen();
 
@@ -47,9 +49,18 @@ option:
         numof_trials = 0;
 
         system_clear(win_linux);
-        loading(35);
+        loading(35, win_linux);
 
     admin_login:
+        input_fp = fopen("admins.txt", "r");
+
+        if (input_fp == NULL)
+        {
+            printf("Error! file doesn't exist\n");
+
+            return EXIT_FAILURE;
+        }
+
         hyphen("\033[1;33m", 130, 10, "TRUE");
         printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
         hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -61,16 +72,35 @@ option:
         printf("\033[33mPassword\t: ");
         scanf("%s", password);
 
+        while (fgets(accounts, sizeof(accounts), input_fp) != NULL)
+        {
+            sscanf(accounts, "\"%[^\"]\" \"%[^\"]\"", account_file, password_file);
+
+            if (strcmp(account_id, account_file) == 0 && strcmp(password, password_file) == 0)
+            {
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+
+        printf("%s", account_file);
+        printf("%s", password_file);
+
         enter(28);
         hyphen("\033[1;33m", 130, 10, "TRUE");
         printf("\033[0m");
 
-        if (strcmp(account_id, "admin") == 0 && strcmp(password, "admin123") == 0)
+        if (strcmp(account_id, account_file) == 0 && strcmp(password, password_file) == 0)
         {
             numof_trials = 0;
 
+            fclose(input_fp);
+
             system_clear(win_linux);
-            loading(35);
+            loading(35, win_linux);
 
             hyphen("\033[1;33m", 130, 10, "TRUE");
             printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
@@ -93,21 +123,21 @@ option:
                 numof_trials = 0;
 
                 system_clear(win_linux);
-                loading(35);
+                loading(35, win_linux);
 
                 return EXIT_SUCCESS;
             }
             else if (option == 4)
             {
                 system_clear(win_linux);
-                loading(35);
+                loading(35, win_linux);
 
                 goto home;
             }
             else if (option == 5)
             {
                 system_clear(win_linux);
-                loading(35);
+                loading(35, win_linux);
 
                 goodbye_screen();
 
@@ -141,6 +171,8 @@ option:
         {
             numof_trials++;
 
+            fclose(input_fp);
+
             system_clear(win_linux);
 
             if (numof_trials < 3)
@@ -154,7 +186,7 @@ option:
             }
             else
             {
-                loading(35);
+                loading(35, win_linux);
 
                 login_end();
 
@@ -172,9 +204,18 @@ option:
         numof_trials = 0;
 
         system_clear(win_linux);
-        loading(35);
+        loading(35, win_linux);
 
     user_login:
+        input_fp = fopen("users.txt", "r");
+
+        if (input_fp == NULL)
+        {
+            printf("Error! file doesn't exist\n");
+
+            return EXIT_FAILURE;
+        }
+
         hyphen("\033[1;33m", 130, 10, "TRUE");
         printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
         hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -186,16 +227,32 @@ option:
         printf("\033[33mPassword\t: ");
         scanf("%s", password);
 
+        while (fgets(accounts, sizeof(accounts), input_fp) != NULL)
+        {
+            sscanf(accounts, "\"%[^\"]\" \"%[^\"]\"", account_file, password_file);
+
+            if (strcmp(account_id, account_file) == 0 && strcmp(password, password_file) == 0)
+            {
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+
         enter(28);
         hyphen("\033[1;33m", 130, 10, "TRUE");
         printf("\033[0m");
 
-        if (strcmp(account_id, "user") == 0 && strcmp(password, "user123") == 0)
+        if (strcmp(account_id, account_file) == 0 && strcmp(password, password_file) == 0)
         {
             numof_trials = 0;
 
+            fclose(input_fp);
+
             system_clear(win_linux);
-            loading(35);
+            loading(35, win_linux);
 
             hyphen("\033[1;33m", 130, 10, "TRUE");
             printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
@@ -218,21 +275,21 @@ option:
                 numof_trials = 0;
 
                 system_clear(win_linux);
-                loading(35);
+                loading(35, win_linux);
 
                 return EXIT_SUCCESS;
             }
             else if (option == 5)
             {
                 system_clear(win_linux);
-                loading(35);
+                loading(35, win_linux);
 
                 goto home;
             }
             else if (option == 6)
             {
                 system_clear(win_linux);
-                loading(35);
+                loading(35, win_linux);
 
                 goodbye_screen();
 
@@ -266,6 +323,8 @@ option:
         {
             numof_trials++;
 
+            fclose(input_fp);
+
             system_clear(win_linux);
 
             if (numof_trials < 3)
@@ -279,7 +338,7 @@ option:
             }
             else
             {
-                loading(35);
+                loading(35, win_linux);
 
                 login_end();
 
