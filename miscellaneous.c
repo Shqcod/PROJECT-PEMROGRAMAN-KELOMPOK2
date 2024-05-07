@@ -336,6 +336,7 @@ void loading(int screen_width)
     system("clear");
 }
 
+// system clear function
 void system_clear(char *clear_arg)
 {
     if (strcmp(clear_arg, "WIN") == 0)
