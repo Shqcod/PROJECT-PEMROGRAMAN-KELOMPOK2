@@ -38,7 +38,7 @@ home:
     int option = 0, numof_trials = 0;
 
 option:
-    printf("\033[1;30;43m[1/2]");
+    printf("\033[1;30;43m[1/2/3]");
     printf("\033[0m");
     printf("\033[33m: ");
     scanf("%d", &option);
@@ -345,6 +345,18 @@ option:
                 return EXIT_FAILURE;
             }
         }
+
+        return EXIT_SUCCESS;
+    }
+    else if (option == 3)
+    {
+        system_clear(win_linux);
+        loading(35, win_linux);
+
+        goodbye_screen();
+
+        timesleep(2, "FALSE", win_linux);
+        system_clear(win_linux);
 
         return EXIT_SUCCESS;
     }

@@ -32,8 +32,9 @@ void home_screen()
     printf("\033[0m");
     printf("\033[33m1. Administrator (full access) \n");
     printf("\033[33m2. User (limited access) \n");
+    printf("\033[33m3. Exit \n");
     printf("\033[0m");
-    enter(21);
+    enter(20);
 
     hyphen("\033[1;33m", 130, 10, "TRUE");
 }
