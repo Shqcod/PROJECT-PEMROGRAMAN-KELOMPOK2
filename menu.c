@@ -155,45 +155,45 @@ void books_available(book data[])
     }
 }
 
-void book_list(book data[], int size)
-{
-    int loop = 0;
-    int id_length, id_lengthtemp;
-    int title_length, title_lengthtemp;
-    int author_length, author_lengthtemp;
-    int page_length, page_lengthtemp;
-    int pubyear_length, pubyear_lengthtemp;
-    int available_length, available_lengthtemp;
+// void book_list(book data[], int size)
+// {
+//     int loop = 0;
+//     int id_length, id_lengthtemp;
+//     int title_length, title_lengthtemp;
+//     int author_length, author_lengthtemp;
+//     int page_length, page_lengthtemp;
+//     int pubyear_length, pubyear_lengthtemp;
+//     int available_length, available_lengthtemp;
 
-    for (int index = 0; index < size; index++)
-    {
-        loop++;
+//     for (int index = 0; index < size; index++)
+//     {
+//         loop++;
 
-        if (loop == 1)
-        {
-            id_lengthtemp = sizeof(data[index].id);
-            id_length = sizeof(data[index].id);
-            title_lengthtemp = strlen(data[index].title);
-            title_length = strlen(data[index].title);
-            author_lengthtemp = strlen(data[index].author);
-            author_length = strlen(data[index].author);
-            page_lengthtemp = sizeof(data[index].page);
-            page_length = sizeof(data[index].page);
-            pubyear_lengthtemp = sizeof(data[index].pub_year);
-            pubyear_length = sizeof(data[index].pub_year);
-            available_lengthtemp = sizeof(data[index].available);
-            available_length = sizeof(data[index].available);
-        }
-        else
-        {
-            if (sizeof(data[index].id) > id_lengthtemp)
-            {
-                id_lengthtemp = sizeof(data[index].id);
-                id_length = sizeof(data[index].id);
-            }
-        }
-    }
-}
+//         if (loop == 1)
+//         {
+//             id_lengthtemp = sizeof(data[index].id);
+//             id_length = sizeof(data[index].id);
+//             title_lengthtemp = strlen(data[index].title);
+//             title_length = strlen(data[index].title);
+//             author_lengthtemp = strlen(data[index].author);
+//             author_length = strlen(data[index].author);
+//             page_lengthtemp = sizeof(data[index].page);
+//             page_length = sizeof(data[index].page);
+//             pubyear_lengthtemp = sizeof(data[index].pub_year);
+//             pubyear_length = sizeof(data[index].pub_year);
+//             available_lengthtemp = sizeof(data[index].available);
+//             available_length = sizeof(data[index].available);
+//         }
+//         else
+//         {
+//             if (sizeof(data[index].id) > id_lengthtemp)
+//             {
+//                 id_lengthtemp = sizeof(data[index].id);
+//                 id_length = sizeof(data[index].id);
+//             }
+//         }
+//     }
+// }
 
 // add books function
 void add_books(struct book_information *book, int *numof_book)

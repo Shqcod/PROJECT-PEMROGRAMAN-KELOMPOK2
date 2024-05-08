@@ -29,8 +29,6 @@ int main(int argc, char *argv[])
     }
 
     system_clear(win_linux);
-    // books_available(data);
-    // book_list(data, size);
     loading(35, win_linux);
 
     welcome_screen();
@@ -288,10 +286,10 @@ option:
                     printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
                     hyphen("\033[1;33m", 130, 10, "TRUE");
 
-                    books_available(data);
+                    // books_available(data);
 
                     printf("\033[33m");
-                    book_list(data, size);
+                    // book_list(data, size);
 
                     enter(10);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
