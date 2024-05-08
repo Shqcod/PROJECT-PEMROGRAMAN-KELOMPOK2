@@ -1,6 +1,35 @@
 // import header.h
 #include "header.h"
 
+// books size function
+int books_size()
+{
+    FILE *input_fp;
+    char books[1024], row[256];
+    int size;
+
+    input_fp = fopen("books.txt", "r");
+
+    if (input_fp == NULL)
+    {
+        printf("Error! file doesn't exist\n");
+
+        return EXIT_FAILURE;
+    }
+
+    while (fgets(books, sizeof(books), input_fp) != NULL)
+    {
+        sscanf(books, "%[^\n]s", row);
+
+        if (strcmp(row, "\n"))
+        {
+            size++;
+        }
+    }
+
+    return size;
+}
+
 // welcome screen function
 void welcome_screen()
 {
@@ -104,15 +133,77 @@ void option_end()
     enter(1);
 }
 
+// books available function
+void books_available(book data[])
+{
+    FILE *input_fp;
+
+    char books[1024];
+
+    input_fp = fopen("books.txt", "r");
+
+    if (input_fp == NULL)
+    {
+        printf("Error! file doesn't exist\n");
+
+        EXIT_FAILURE;
+    }
+
+    for (int index = 0; fgets(books, sizeof(books), input_fp) != NULL; index++)
+    {
+        sscanf(books, "%u \"%[^\"]\" \"%[^\"]\" %u %u %u", &data[index].id, data[index].title, data[index].author, &data[index].page, &data[index].pub_year, &data[index].available);
+    }
+}
+
+void book_list(book data[], int size)
+{
+    int loop = 0;
+    int id_length, id_lengthtemp;
+    int title_length, title_lengthtemp;
+    int author_length, author_lengthtemp;
+    int page_length, page_lengthtemp;
+    int pubyear_length, pubyear_lengthtemp;
+    int available_length, available_lengthtemp;
+
+    for (int index = 0; index < size; index++)
+    {
+        loop++;
+
+        if (loop == 1)
+        {
+            id_lengthtemp = sizeof(data[index].id);
+            id_length = sizeof(data[index].id);
+            title_lengthtemp = strlen(data[index].title);
+            title_length = strlen(data[index].title);
+            author_lengthtemp = strlen(data[index].author);
+            author_length = strlen(data[index].author);
+            page_lengthtemp = sizeof(data[index].page);
+            page_length = sizeof(data[index].page);
+            pubyear_lengthtemp = sizeof(data[index].pub_year);
+            pubyear_length = sizeof(data[index].pub_year);
+            available_lengthtemp = sizeof(data[index].available);
+            available_length = sizeof(data[index].available);
+        }
+        else
+        {
+            if (sizeof(data[index].id) > id_lengthtemp)
+            {
+                id_lengthtemp = sizeof(data[index].id);
+                id_length = sizeof(data[index].id);
+            }
+        }
+    }
+}
+
 // add books function
 void add_books(struct book_information *book, int *numof_book)
 {
     printf("\033[0m");
     printf("\033[33mBook id\t: ");
-    scanf("%u", &book[*numof_book].book_id);
+    scanf("%u", &book[*numof_book].id);
 
     printf("\033[33mBook title\t: ");
-    scanf(" %[^\n]s", book[*numof_book].book_title);
+    scanf(" %[^\n]s", book[*numof_book].title);
 
     printf("\033[33mAuthor name\t: ");
     scanf(" %[^\n]s", book[*numof_book].author);
@@ -121,10 +212,10 @@ void add_books(struct book_information *book, int *numof_book)
     scanf("%u", &book[*numof_book].page);
 
     printf("\033[33mPublication year\t: ");
-    scanf("%u", &book[*numof_book].publication_year);
+    scanf("%u", &book[*numof_book].pub_year);
 
     printf("\033[33mBooks available: ");
-    scanf("%u", &book[*numof_book].books_available);
+    scanf("%u", &book[*numof_book].available);
     printf("\033[0m");
 
     (*numof_book)++;
@@ -135,7 +226,7 @@ int search_books(struct book_information *book, int numof_book, unsigned int boo
 {
     for (int i = 0; i < numof_book; i++)
     {
-        if (book[i].book_id == book_id)
+        if (book[i].id == book_id)
         {
             return i;
         }

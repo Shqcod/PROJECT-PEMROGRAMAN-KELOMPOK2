@@ -10,6 +10,10 @@ int main(int argc, char *argv[])
     ratio: 1:4 */
 
     FILE *input_fp, *output_fp;
+
+    int size = books_size();
+
+    book data[size];
     char account_id[128], password[128];
     char account_file[128], password_file[128];
     char win_linux[8], accounts[256];
@@ -25,6 +29,8 @@ int main(int argc, char *argv[])
     }
 
     system_clear(win_linux);
+    // books_available(data);
+    // book_list(data, size);
     loading(35, win_linux);
 
     welcome_screen();
@@ -248,6 +254,8 @@ option:
 
             fclose(input_fp);
 
+            input_fp = fopen("books.txt", "r");
+
             system_clear(win_linux);
             loading(35, win_linux);
 
@@ -274,7 +282,20 @@ option:
                 system_clear(win_linux);
                 loading(35, win_linux);
 
-                return EXIT_SUCCESS;
+                if (option == 1)
+                {
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+                    printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                    books_available(data);
+
+                    printf("\033[33m");
+                    book_list(data, size);
+
+                    enter(10);
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+                }
             }
             else if (option == 5)
             {

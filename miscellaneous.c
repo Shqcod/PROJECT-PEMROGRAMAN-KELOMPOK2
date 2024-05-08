@@ -270,7 +270,6 @@ void backspace(int backspace_length)
 void timesleep(float limit, char *print_escape, char *power_arg)
 {
     float seconds = 0;
-    int power;
     clock_t start, time;
 
     start = clock();
