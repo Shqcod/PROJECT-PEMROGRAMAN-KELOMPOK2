@@ -1,0 +1,6 @@
+admin;admin123;1
+user;user123;2
+budi;budi123;2
+andi;andi123;2
+asep;asep123;1
+yuki;yuki123;1
