@@ -18,7 +18,7 @@ typedef struct book_information
 } book;
 
 // function prototype
-int books_size();
+int list_length();
 void welcome_screen();
 void home_screen();
 void printin_center(char *typeof_str, char *string, int screen_xy, int margin, char *enter);
@@ -40,7 +40,8 @@ void user_menu();
 void login_invalid();
 void login_end();
 void books_available(book data[]);
-void book_list(book data[], int size);
+void table_row(book data[], int index);
+void table_border(char *enter);
 void add_books(struct book_information *book, int *numof_book);
 int search_books(struct book_information *book, int numof_book, unsigned int book_id);
 void goodbye_screen();

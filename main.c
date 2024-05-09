@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
     FILE *input_fp, *output_fp;
 
-    int size = books_size();
+    int size = list_length();
 
     book data[size];
     char account_id[128], password[128];
@@ -282,17 +282,32 @@ option:
 
                 if (option == 1)
                 {
+                    size = list_length();
+
                     hyphen("\033[1;33m", 130, 10, "TRUE");
                     printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
                     hyphen("\033[1;33m", 130, 10, "TRUE");
 
-                    // books_available(data);
+                    books_available(data);
 
                     printf("\033[33m");
-                    // book_list(data, size);
 
-                    enter(10);
+                    table_border("TRUE");
+                    printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Page", "Year", "Available");
+                    table_border("TRUE");
+                    printf("\033[0m");
+
+                    for (int index = 0; index < size; index++)
+                    {
+                        table_row(data, index);
+                    }
+
+                    table_border("TRUE");
+                    printf("\033[0m");
+
+                    enter(30 - size - 4);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
+                    printf("\033[0m");
                 }
             }
             else if (option == 5)

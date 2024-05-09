@@ -2,7 +2,7 @@
 #include "header.h"
 
 // books size function
-int books_size()
+int list_length()
 {
     FILE *input_fp;
     char books[1024], row[256];
@@ -155,45 +155,44 @@ void books_available(book data[])
     }
 }
 
-// void book_list(book data[], int size)
-// {
-//     int loop = 0;
-//     int id_length, id_lengthtemp;
-//     int title_length, title_lengthtemp;
-//     int author_length, author_lengthtemp;
-//     int page_length, page_lengthtemp;
-//     int pubyear_length, pubyear_lengthtemp;
-//     int available_length, available_lengthtemp;
+// table row function
+void table_row(book data[], int index)
+{
+    printf("\033[33m");
+    printf("| %-5u | %-47s | %-35s | %-11u | %-11u | %-11u |\n", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, data[index].available);
+    printf("\033[0m");
+}
 
-//     for (int index = 0; index < size; index++)
-//     {
-//         loop++;
+// table border function
+void table_border(char *enter)
+{
+    printf("\033[1;33m+");
+    hyphen("\033[1;33m", 5, 2, "FALSE");
+    printf("\033[1;33m+");
+    hyphen("\033[1;33m", 50, 0, "FALSE");
+    printf("\033[1;33m+");
+    hyphen("\033[1;33m", 36, 1, "FALSE");
+    printf("\033[1;33m+");
+    hyphen("\033[1;33m", 14, 0, "FALSE");
+    printf("\033[1;33m+");
+    hyphen("\033[1;33m", 14, 0, "FALSE");
+    printf("\033[1;33m+");
+    hyphen("\033[1;33m", 14, 0, "FALSE");
+    printf("\033[1;33m+");
 
-//         if (loop == 1)
-//         {
-//             id_lengthtemp = sizeof(data[index].id);
-//             id_length = sizeof(data[index].id);
-//             title_lengthtemp = strlen(data[index].title);
-//             title_length = strlen(data[index].title);
-//             author_lengthtemp = strlen(data[index].author);
-//             author_length = strlen(data[index].author);
-//             page_lengthtemp = sizeof(data[index].page);
-//             page_length = sizeof(data[index].page);
-//             pubyear_lengthtemp = sizeof(data[index].pub_year);
-//             pubyear_length = sizeof(data[index].pub_year);
-//             available_lengthtemp = sizeof(data[index].available);
-//             available_length = sizeof(data[index].available);
-//         }
-//         else
-//         {
-//             if (sizeof(data[index].id) > id_lengthtemp)
-//             {
-//                 id_lengthtemp = sizeof(data[index].id);
-//                 id_length = sizeof(data[index].id);
-//             }
-//         }
-//     }
-// }
+    if (strcmp(enter, "TRUE") == 0)
+    {
+        printf("\n");
+    }
+    else if (strcmp(enter, "FALSE") == 0)
+    {
+        EXIT_SUCCESS;
+    }
+    else
+    {
+        EXIT_FAILURE;
+    }
+}
 
 // add books function
 void add_books(struct book_information *book, int *numof_book)
