@@ -11,3 +11,10 @@ void kembalikan(struct Buku *buku, unsigned int jumlahBuku, unsigned int id) {
     }
 }
 
+//memanggil fungsi
+unsigned int id;
+printf("Masukkan ID buku yang ingin dikembalikan: ");
+scanf("%u", &id);
+kembalikan(buku, jumlahBuku, id);
+
+
