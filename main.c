@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     char account_id[128], password[128];
     char account_file[128], password_file[128];
     char win_linux[8], accounts[256];
+    char cmd_option[10];
 
     if (argc == 2)
     {
@@ -257,6 +258,7 @@ option:
             system_clear(win_linux);
             loading(35, win_linux);
 
+        user_menu:
             hyphen("\033[1;33m", 130, 10, "TRUE");
             printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
             hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -305,9 +307,52 @@ option:
                     table_border("TRUE");
                     printf("\033[0m");
 
+                    fclose(input_fp);
+
                     enter(30 - size - 4);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                user_cmd_option:
+                    printf("\033[1;30;43m[HOME/ESCAPE]");
                     printf("\033[0m");
+                    printf("\033[33m: ");
+                    scanf("%s", cmd_option);
+                    printf("\033[0m");
+
+                    if (strcmp(cmd_option, "HOME") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto home;
+                    }
+                    else if (strcmp(cmd_option, "ESCAPE") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto user_menu;
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto user_cmd_option;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
+                        }
+                    }
                 }
             }
             else if (option == 5)
