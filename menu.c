@@ -1,10 +1,11 @@
 // import header.h
 #include "header.h"
 
-// books size function
-int list_length()
+// book list length function
+int booklist_length()
 {
     FILE *input_fp;
+
     char books[1024], row[256];
     int size;
 
@@ -26,6 +27,40 @@ int list_length()
             size++;
         }
     }
+
+    fclose(input_fp);
+
+    return size;
+}
+
+// borrowed books length function
+int borrowed_length()
+{
+    FILE *input_fp;
+
+    char data[512], row[256];
+    int size;
+
+    input_fp = fopen("borrowed.txt", "r");
+
+    if (input_fp == NULL)
+    {
+        printf("Error! file doesn't exist\n");
+
+        return EXIT_FAILURE;
+    }
+
+    while (fgets(data, sizeof(data), input_fp) != NULL)
+    {
+        sscanf(data, "%[^\n]s", row);
+
+        if (strcmp(row, "\n"))
+        {
+            size++;
+        }
+    }
+
+    fclose(input_fp);
 
     return size;
 }
@@ -153,6 +188,8 @@ void books_available(book data[])
     {
         sscanf(books, "%u \"%[^\"]\" \"%[^\"]\" %u %u %u", &data[index].id, data[index].title, data[index].author, &data[index].page, &data[index].pub_year, &data[index].available);
     }
+
+    fclose(input_fp);
 }
 
 // table row function
@@ -187,6 +224,54 @@ void table_border(char *enter)
     else if (strcmp(enter, "FALSE") == 0)
     {
         EXIT_SUCCESS;
+    }
+    else
+    {
+        EXIT_FAILURE;
+    }
+}
+
+// user loans function
+void user_loans(user onloans[])
+{
+    FILE *input_fp;
+
+    char borrowed[512];
+
+    input_fp = fopen("borrowed.txt", "r");
+
+    if (input_fp == NULL)
+    {
+        printf("\033[33mError! file doesn't exist\n");
+
+        EXIT_FAILURE;
+    }
+
+    for (int index = 0; fgets(borrowed, sizeof(borrowed), input_fp) != NULL; index++)
+    {
+        sscanf(borrowed, "\"%[^\"]\" %u %u", onloans[index].username, &onloans[index].book_id, &onloans[index].numof_book);
+    }
+
+    fclose(input_fp);
+}
+
+void book_status(char *win_linux, int option)
+{
+    if (option == 1)
+    {
+        printf("\033[33mBook have been borrowed!");
+        printf("\033[0m");
+
+        timesleep(1, "TRUE", win_linux);
+        system_clear(win_linux);
+    }
+    else if (option == 2)
+    {
+        printf("\033[33mBook is not available!");
+        printf("\033[0m");
+
+        timesleep(1, "TRUE", win_linux);
+        system_clear(win_linux);
     }
     else
     {
@@ -231,6 +316,30 @@ int search_books(struct book_information *book, int numof_book, unsigned int boo
         }
     }
     return -1;
+}
+
+void print_newlist(book data[], char *account_id, int books_size, int temp_index)
+{
+    FILE *output_fp;
+
+    output_fp = fopen("borrowed.txt", "a");
+
+    fprintf(output_fp, "\n\"%s\" %u %d", account_id, data[temp_index].id, 1);
+    fclose(output_fp);
+
+    output_fp = fopen("books.txt", "w");
+
+    for (int index = 0; index < books_size; index++)
+    {
+        fprintf(output_fp, "%u \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, data[index].available);
+
+        if (index < (books_size - 1))
+        {
+            fprintf(output_fp, "\n");
+        }
+    }
+
+    fclose(output_fp);
 }
 
 // goodbye screen function

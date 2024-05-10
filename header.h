@@ -17,8 +17,17 @@ typedef struct book_information
     unsigned int available;
 } book;
 
+// user loans struct
+typedef struct loans
+{
+    char username[32];
+    unsigned int book_id;
+    unsigned int numof_book;
+} user;
+
 // function prototype
-int list_length();
+int booklist_length();
+int borrowed_length();
 void welcome_screen();
 void home_screen();
 void printin_center(char *typeof_str, char *string, int screen_xy, int margin, char *enter);
@@ -40,8 +49,11 @@ void user_menu();
 void login_invalid();
 void login_end();
 void books_available(book data[]);
+void user_loans(user onloans[]);
 void table_row(book data[], int index);
 void table_border(char *enter);
+void book_status(char *win_linux, int option);
 void add_books(struct book_information *book, int *numof_book);
 int search_books(struct book_information *book, int numof_book, unsigned int book_id);
+void print_newlist(book data[], char *account_id, int books_size, int temp_index);
 void goodbye_screen();

@@ -11,9 +11,12 @@ int main(int argc, char *argv[])
 
     FILE *input_fp, *output_fp;
 
-    int size = list_length();
+    int books_size = booklist_length();
+    int borrowed_size = borrowed_length();
 
-    book data[size];
+    book data[books_size];
+    user onloans[borrowed_size];
+
     char account_id[128], password[128];
     char account_file[128], password_file[128];
     char win_linux[8], accounts[256];
@@ -61,7 +64,7 @@ option:
 
         if (input_fp == NULL)
         {
-            printf("Error! file doesn't exist\n");
+            printf("\033[33mError! file doesn't exist\n");
 
             return EXIT_FAILURE;
         }
@@ -213,7 +216,7 @@ option:
 
         if (input_fp == NULL)
         {
-            printf("Error! file doesn't exist\n");
+            printf("\033[33mError! file doesn't exist\n");
 
             return EXIT_FAILURE;
         }
@@ -277,14 +280,14 @@ option:
 
             if (option >= 1 && option <= 4)
             {
-                numof_trials = 0;
-
                 system_clear(win_linux);
                 loading(35, win_linux);
 
                 if (option == 1)
                 {
-                    size = list_length();
+                    numof_trials = 0;
+
+                    books_size = booklist_length();
 
                     hyphen("\033[1;33m", 130, 10, "TRUE");
                     printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
@@ -299,7 +302,7 @@ option:
                     table_border("TRUE");
                     printf("\033[0m");
 
-                    for (int index = 0; index < size; index++)
+                    for (int index = 0; index < books_size; index++)
                     {
                         table_row(data, index);
                     }
@@ -307,12 +310,10 @@ option:
                     table_border("TRUE");
                     printf("\033[0m");
 
-                    fclose(input_fp);
-
-                    enter(30 - size - 4);
+                    enter(30 - books_size - 4);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
 
-                user_cmd_option:
+                user_cmd_option1:
                     printf("\033[1;30;43m[HOME/ESCAPE]");
                     printf("\033[0m");
                     printf("\033[33m: ");
@@ -341,7 +342,143 @@ option:
                         {
                             option_invalid();
 
-                            goto user_cmd_option;
+                            goto user_cmd_option1;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
+                        }
+                    }
+                }
+                else if (option == 2)
+                {
+                    numof_trials = 0;
+
+                    unsigned int book_id;
+                    int temp_index;
+
+                    books_size = booklist_length();
+                    books_available(data);
+
+                    borrowed_size = borrowed_length();
+                    user_loans(onloans);
+
+                borrow_books:
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+                    printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                    printf("\033[33mEnter book ID: ");
+                    scanf("%u", &book_id);
+                    enter(1);
+                    printf("\033[0m");
+
+                    for (int index = 0; index < borrowed_size; index++)
+                    {
+                        if (index < (borrowed_size - 1))
+                        {
+                            if ((strcmp(onloans[index].username, account_id) == 0) && (onloans[index].book_id == book_id))
+                            {
+                                book_status(win_linux, 1);
+
+                                goto borrow_books;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if ((strcmp(onloans[index].username, account_id) == 0) && (onloans[index].book_id == book_id))
+                            {
+                                book_status(win_linux, 1);
+
+                                goto borrow_books;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    for (int index = 0; index < books_size; index++)
+                    {
+                        if (data[index].id == book_id)
+                        {
+                            if (data[index].available == 0)
+                            {
+                                book_status(win_linux, 2);
+
+                                goto borrow_books;
+                            }
+                            else
+                            {
+                                --(data[index].available);
+                                temp_index = index;
+
+                                timesleep(1, "TRUE", win_linux);
+
+                                printf("\033[33mBook borrowing successful!");
+                                printf("\033[0m");
+                                enter(1);
+
+                                break;
+                            }
+                        }
+                        else if ((index == (books_size - 1)) && data[index].id != book_id)
+                        {
+                            book_status(win_linux, 2);
+
+                            goto borrow_books;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+
+                    enter(26);
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                    print_newlist(data, account_id, books_size, temp_index);
+
+                user_cmd_option2:
+                    printf("\033[1;30;43m[HOME/ESCAPE]");
+                    printf("\033[0m");
+                    printf("\033[33m: ");
+                    scanf("%s", cmd_option);
+                    printf("\033[0m");
+
+                    if (strcmp(cmd_option, "HOME") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto home;
+                    }
+                    else if (strcmp(cmd_option, "ESCAPE") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto user_menu;
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto user_cmd_option2;
                         }
                         else
                         {
