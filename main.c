@@ -481,6 +481,87 @@ option:
                         }
                     }
                 }
+                else if (option == 3)
+                {
+                    numof_trials = 0;
+
+                    books_size = booklist_length();
+                    books_available(data);
+
+                    borrowed_size = borrowed_length();
+                    user_loans(onloans);
+
+                    header();
+
+                    printf("%d", borrowed_size);
+
+                    printf("\033[1;33mOn loans");
+                    printf("\033[0m");
+                    enter(1);
+
+                    printf("\033[33m");
+                    table_border("TRUE");
+                    printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Page", "Year", "Available");
+                    table_border("TRUE");
+                    printf("\033[0m");
+
+                    for (int onloans_index = 0; onloans_index < borrowed_size; onloans_index++)
+                    {
+                        for (int books_index = 0; books_index < books_size; books_index++)
+                        {
+                            if (onloans[onloans_index].book_id == data[books_index].id)
+                            {
+                                table_row(data, books_index);
+                            }
+                        }
+                        table_border("TRUE");
+                        printf("\033[0m");
+                    }
+
+                    enter(35 - (pow(borrowed_size, 2)) - 6);
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                user_cmd_option3:
+                    home_escape();
+
+                    scanf("%s", cmd_option);
+                    printf("\033[0m");
+
+                    if (strcmp(cmd_option, "HOME") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto home;
+                    }
+                    else if (strcmp(cmd_option, "ESCAPE") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto user_menu;
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto user_cmd_option3;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
+                        }
+                    }
+                }
             }
             else if (option == 5)
             {

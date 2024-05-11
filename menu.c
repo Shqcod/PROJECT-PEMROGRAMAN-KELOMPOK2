@@ -46,7 +46,7 @@ int borrowed_length()
 {
     FILE *input_fp;
 
-    char data[1024], row[256];
+    char data[1024], row[128];
     int size;
 
     input_fp = fopen("borrowed.txt", "r");
