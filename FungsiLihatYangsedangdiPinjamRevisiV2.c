@@ -12,5 +12,6 @@ void lihatyangsedangdipinjem(struct Buku *buku, unsigned int *jumlahBuku) {
     }
 }
 
+//Panggil
 printf("Lihat Buku yang sudah di pinjem di file pinjaman.txt\n");
     lihatyangsedangdipinjem(buku, &jumlahBuku);
