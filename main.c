@@ -106,36 +106,348 @@ option:
             system_clear(win_linux);
             loading(35, win_linux);
 
+        admin_menu:
             header();
 
             admin_menu();
-            enter(24);
+            enter(23);
 
             hyphen("\033[1;33m", 130, 10, "TRUE");
 
         admin_option:
-            option_length(5);
+            option_length(6);
 
             scanf("%d", &option);
             printf("\033[0m");
 
-            if (option >= 1 && option <= 3)
+            if (option >= 1 && option <= 4)
             {
-                numof_trials = 0;
-
                 system_clear(win_linux);
                 loading(35, win_linux);
 
-                return EXIT_SUCCESS;
+                if (option == 1)
+                {
+                    numof_trials = 0;
+
+                    books_size = booklist_length();
+
+                    header();
+
+                    books_available(data);
+
+                    printf("\033[1;33mBook list");
+                    printf("\033[0m");
+                    enter(1);
+
+                    printf("\033[33m");
+                    table_border("TRUE");
+                    printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Page", "Year", "Available");
+                    table_border("TRUE");
+                    printf("\033[0m");
+
+                    for (int index = 0; index < books_size; index++)
+                    {
+                        table_row(data, index);
+                    }
+
+                    table_border("TRUE");
+                    printf("\033[0m");
+
+                    enter(29 - books_size - 4);
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                admin_cmd_option1:
+                    home_escape();
+
+                    scanf("%s", cmd_option);
+                    printf("\033[0m");
+
+                    if (strcmp(cmd_option, "HOME") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto home;
+                    }
+                    else if (strcmp(cmd_option, "ESCAPE") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto admin_menu;
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto admin_cmd_option1;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
+                        }
+                    }
+                }
+                else if (option == 2)
+                {
+                    unsigned int id;
+                    char title[128];
+                    char author[128];
+                    unsigned int page;
+                    unsigned int pub_year;
+                    unsigned int quantity;
+
+                    numof_trials = 0;
+
+                add_books:
+                    header();
+
+                    printf("\033[1;33mAdd books");
+                    printf("\033[0m");
+                    enter(1);
+
+                    printf("\033[33mBook ID\t\t: ");
+                    scanf("%u", &id);
+                    printf("\033[33mTitle\t\t: ");
+                    scanf(" %[^\n]s", title);
+                    printf("\033[33mAuthor\t\t: ");
+                    scanf(" %[^\n]s", author);
+                    printf("\033[33mNumber of page\t: ");
+                    scanf("%u", &page);
+                    printf("\033[33mPub. year\t: ");
+                    scanf("%u", &pub_year);
+                    printf("\033[33mQuantity\t: ");
+                    scanf("%u", &quantity);
+                    printf("\033[0m");
+                    enter(1);
+
+                    books_size = booklist_length();
+                    books_available(data);
+
+                    for (int index = 0; index < books_size; index++)
+                    {
+                        if (data[index].id == id)
+                        {
+                            book_status(win_linux, 3);
+
+                            goto add_books;
+                        }
+                        else
+                        {
+                            if (index == (books_size - 1))
+                            {
+                                output_fp = fopen("books.txt", "a");
+
+                                add_books(id, title, author, page, pub_year, quantity, win_linux);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+
+                admin_cmd_option2:
+                    home_escape();
+
+                    scanf("%s", cmd_option);
+                    printf("\033[0m");
+
+                    if (strcmp(cmd_option, "HOME") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto home;
+                    }
+                    else if (strcmp(cmd_option, "ESCAPE") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto admin_menu;
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto admin_cmd_option2;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
+                        }
+                    }
+                }
+                else if (option == 3)
+                {
+                    numof_trials = 0;
+
+                delete_books:
+                    header();
+
+                    printf("\033[1;33mDelete books");
+                    printf("\033[0m");
+                    enter(1);
+
+                    books_size = booklist_length();
+                    books_available(data);
+
+                    printf("\033[33mEnter book ID: ");
+                    scanf("%u", &book_id);
+                    enter(1);
+                    printf("\033[0m");
+
+                    for (int index = 0; index < books_size; index++)
+                    {
+                        if (index == (books_size - 1))
+                        {
+                            if (data[index].id != book_id)
+                            {
+                                book_status(win_linux, 2);
+
+                                goto delete_books;
+                            }
+                            else
+                            {
+                                delete_books(data, book_id, books_size, win_linux);
+
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (data[index].id == book_id)
+                            {
+                                delete_books(data, book_id, books_size, win_linux);
+
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+
+                    enter(27);
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                admin_cmd_option3:
+                    home_escape();
+
+                    scanf("%s", cmd_option);
+                    printf("\033[0m");
+
+                    if (strcmp(cmd_option, "HOME") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto home;
+                    }
+                    else if (strcmp(cmd_option, "ESCAPE") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto user_menu;
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto admin_cmd_option3;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
+                        }
+                    }
+                }
+                else
+                {
+                    numof_trials = 0;
+
+                modify_books:
+                    header();
+
+                    printf("\033[1;33mModify books");
+                    printf("\033[0m");
+                    enter(1);
+
+                    books_size = booklist_length();
+                    books_available(data);
+
+                    printf("\033[33mEnter book ID: ");
+                    scanf("%u", &book_id);
+                    enter(1);
+                    printf("\033[0m");
+
+                    for (int index = 0; index < books_size; index++)
+                    {
+                        if (index == (books_size - 1))
+                        {
+                            if (data[index].id != book_id)
+                            {
+                                book_status(win_linux, 2);
+
+                                goto modify_books;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (data[index].id == book_id)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
             }
-            else if (option == 4)
+            else if (option == 5)
             {
                 system_clear(win_linux);
                 loading(35, win_linux);
 
                 goto home;
             }
-            else if (option == 5)
+            else if (option == 6)
             {
                 system_clear(win_linux);
                 loading(35, win_linux);
@@ -284,7 +596,7 @@ option:
 
                     books_available(data);
 
-                    printf("\033[1;33mBook list");
+                    printf("\033[1;33mBooks available");
                     printf("\033[0m");
                     enter(1);
 
@@ -492,7 +804,7 @@ option:
 
                     header();
 
-                    printf("\033[1;33mOn loans (%s)", account_id);
+                    printf("\033[1;33mOn loan (%s)", account_id);
                     printf("\033[0m");
                     enter(1);
 

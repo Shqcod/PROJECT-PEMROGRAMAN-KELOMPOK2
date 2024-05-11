@@ -115,49 +115,68 @@ void book_status(char *win_linux, int option)
         timesleep(1, "TRUE", win_linux);
         system_clear(win_linux);
     }
+    else if (option == 3)
+    {
+        printf("\033[33mBook already available!");
+        printf("\033[0m");
+
+        timesleep(1, "TRUE", win_linux);
+        system_clear(win_linux);
+    }
     else
     {
         EXIT_FAILURE;
     }
 }
 
-// add books function
-void add_books(struct book_information *book, int *numof_book)
+// print to file (added books) function
+void add_books(unsigned int id, char title[], char author[], unsigned int page, unsigned int pub_year, unsigned int quantity, char *win_linux)
 {
-    printf("\033[0m");
-    printf("\033[33mBook id\t: ");
-    scanf("%u", &book[*numof_book].id);
+    FILE *output_fp;
 
-    printf("\033[33mBook title\t: ");
-    scanf(" %[^\n]s", book[*numof_book].title);
+    fprintf(output_fp, "\n%u \"%s\" \"%s\" %u %u %u", id, title, author, page, pub_year, quantity);
 
-    printf("\033[33mAuthor name\t: ");
-    scanf(" %[^\n]s", book[*numof_book].author);
+    timesleep(1, "TRUE", win_linux);
 
-    printf("\033[33mNumber of pages\t: ");
-    scanf("%u", &book[*numof_book].page);
-
-    printf("\033[33mPublication year\t: ");
-    scanf("%u", &book[*numof_book].pub_year);
-
-    printf("\033[33mBooks available: ");
-    scanf("%u", &book[*numof_book].available);
+    printf("\033[33mBook added successfully!");
     printf("\033[0m");
 
-    (*numof_book)++;
+    enter(22);
+    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+    fclose(output_fp);
 }
 
-// search books function
-int search_books(struct book_information *book, int numof_book, unsigned int book_id)
+// print to file (deleted book) function
+void delete_books(book data[], unsigned int book_id, int books_size, char *win_linux)
 {
-    for (int i = 0; i < numof_book; i++)
+    FILE *output_fp;
+
+    output_fp = fopen("books.txt", "w");
+
+    for (int index = 0; index < books_size; index++)
     {
-        if (book[i].id == book_id)
+        if (data[index].id != book_id)
         {
-            return i;
+            fprintf(output_fp, "%u \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, data[index].available);
+
+            if (index < (books_size - 1))
+            {
+                fprintf(output_fp, "\n");
+            }
+        }
+        else
+        {
+            continue;
         }
     }
-    return -1;
+
+    timesleep(1, "TRUE", win_linux);
+
+    printf("\033[33mBook added successfully!");
+    printf("\033[0m");
+
+    fclose(output_fp);
 }
 
 // print new book list to both file function
@@ -180,6 +199,10 @@ void print_newlist(book data[], char *account_id, int books_size, int temp_index
         {
             fprintf(output_fp, "\n");
         }
+        else
+        {
+            continue;
+        }
     }
 
     fclose(output_fp);
@@ -199,6 +222,10 @@ void print_books(book data[], int books_size)
         if (index < (books_size - 1))
         {
             fprintf(output_fp, "\n");
+        }
+        else
+        {
+            continue;
         }
     }
 
@@ -225,6 +252,10 @@ void print_loans(user onloan[], int borrowed_size, int book_id)
             if (index < (borrowed_size - 1))
             {
                 fprintf(output_fp, "\n");
+            }
+            else
+            {
+                break;
             }
         }
     }

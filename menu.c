@@ -116,11 +116,12 @@ void admin_menu()
 {
     printf("\033[1;33mAdmin menu\n");
     printf("\033[0m");
-    printf("\033[33m1. Add books\n");
-    printf("\033[33m2. Delete books\n");
-    printf("\033[33m3. Modify books\n");
-    printf("\033[33m4. Home\n");
-    printf("\033[33m5. Exit\n");
+    printf("\033[33m1. Book list\n");
+    printf("\033[33m2. Add books\n");
+    printf("\033[33m3. Delete books\n");
+    printf("\033[33m4. Modify books\n");
+    printf("\033[33m5. Home\n");
+    printf("\033[33m6. Exit\n");
     printf("\033[0m");
 }
 
