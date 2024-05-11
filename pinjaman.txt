@@ -1,0 +1,10 @@
+
+judul buku: setan
+penerbit: diki
+buku dengan ID 9 telah berhasil dipinjam.
+judul buku: hantu
+penerbit: nasya
+buku dengan ID 11 telah berhasil dipinjam.
+judul buku: hantu
+penerbit: nasya
+buku dengan ID 11 telah berhasil dipinjam.
