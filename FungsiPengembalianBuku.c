@@ -10,7 +10,6 @@ void pengembalian(struct Buku *buku, unsigned int jumlahBuku, unsigned int id) {
         printf("ID buku tidak valid.\n");
     }
 }
-
 //memanggil fungsi
 unsigned int id;
 printf("Masukkan ID buku yang ingin dikembalikan: ");
