@@ -32,6 +32,14 @@ void table_row(book data[], int index)
     printf("\033[0m");
 }
 
+// on loan table row function
+void onloan_table_row(book data[], int index)
+{
+    printf("\033[33m");
+    printf("| %-5u | %-47s | %-35s | %-11u | %-11u | %-11u |\n", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, 1);
+    printf("\033[0m");
+}
+
 // table border function
 void table_border(char *enter)
 {
@@ -64,7 +72,7 @@ void table_border(char *enter)
 }
 
 // user loans function
-void user_loans(user onloans[])
+void user_loans(user onloan[])
 {
     FILE *input_fp;
 
@@ -81,7 +89,7 @@ void user_loans(user onloans[])
 
     for (int index = 0; fgets(borrowed, sizeof(borrowed), input_fp) != NULL; index++)
     {
-        sscanf(borrowed, "\"%[^\"]\" %u %u", onloans[index].username, &onloans[index].book_id, &onloans[index].numof_book);
+        sscanf(borrowed, "\"%[^\"]\" %u %u", onloan[index].username, &onloan[index].book_id, &onloan[index].numof_book);
     }
 
     fclose(input_fp);
@@ -151,7 +159,7 @@ int search_books(struct book_information *book, int numof_book, unsigned int boo
     return -1;
 }
 
-// print new book list to files function
+// print new book list to both file function
 void print_newlist(book data[], char *account_id, int books_size, int temp_index)
 {
     FILE *output_fp;
@@ -170,6 +178,53 @@ void print_newlist(book data[], char *account_id, int books_size, int temp_index
         if (index < (books_size - 1))
         {
             fprintf(output_fp, "\n");
+        }
+    }
+
+    fclose(output_fp);
+}
+
+// print new book list to file function
+void print_books(book data[], int books_size)
+{
+    FILE *output_fp;
+
+    output_fp = fopen("books.txt", "w");
+
+    for (int index = 0; index < books_size; index++)
+    {
+        fprintf(output_fp, "%u \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, data[index].available);
+
+        if (index < (books_size - 1))
+        {
+            fprintf(output_fp, "\n");
+        }
+    }
+
+    fclose(output_fp);
+}
+
+// print new loans function
+void print_loans(user onloan[], int borrowed_size, int book_id)
+{
+    FILE *output_fp;
+
+    output_fp = fopen("borrowed.txt", "w");
+
+    for (int index = 0; index < borrowed_size; index++)
+    {
+        if (onloan[index].book_id == book_id)
+        {
+            continue;
+        }
+        else
+        {
+            fprintf(output_fp, "\"%s\" %u %u", onloan[index].username, onloan[index].book_id, 1);
+
+            if (index < (borrowed_size - 1))
+            {
+                fprintf(output_fp, "\n");
+            }
         }
     }
 

@@ -15,12 +15,14 @@ int main(int argc, char *argv[])
     int borrowed_size = borrowed_length();
 
     book data[books_size];
-    user onloans[borrowed_size];
+    user onloan[borrowed_size];
 
     char account_id[128], password[128];
     char account_file[128], password_file[128];
     char win_linux[8], accounts[256];
     char cmd_option[10];
+    unsigned int book_id;
+    int temp_index;
 
     if (argc == 2)
     {
@@ -107,7 +109,7 @@ option:
             header();
 
             admin_menu();
-            enter(25);
+            enter(24);
 
             hyphen("\033[1;33m", 130, 10, "TRUE");
 
@@ -257,7 +259,7 @@ option:
             header();
 
             user_menu();
-            enter(24);
+            enter(23);
 
             hyphen("\033[1;33m", 130, 10, "TRUE");
 
@@ -348,14 +350,11 @@ option:
                 {
                     numof_trials = 0;
 
-                    unsigned int book_id;
-                    int temp_index;
-
                     books_size = booklist_length();
                     books_available(data);
 
                     borrowed_size = borrowed_length();
-                    user_loans(onloans);
+                    user_loans(onloan);
 
                 borrow_books:
                     header();
@@ -373,7 +372,7 @@ option:
                     {
                         if (index < (borrowed_size - 1))
                         {
-                            if ((strcmp(onloans[index].username, account_id) == 0) && (onloans[index].book_id == book_id))
+                            if ((strcmp(onloan[index].username, account_id) == 0) && (onloan[index].book_id == book_id))
                             {
                                 book_status(win_linux, 1);
 
@@ -386,7 +385,7 @@ option:
                         }
                         else
                         {
-                            if ((strcmp(onloans[index].username, account_id) == 0) && (onloans[index].book_id == book_id))
+                            if ((strcmp(onloan[index].username, account_id) == 0) && (onloan[index].book_id == book_id))
                             {
                                 book_status(win_linux, 1);
 
@@ -435,7 +434,7 @@ option:
                         }
                     }
 
-                    enter(25);
+                    enter(26);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
 
                     print_newlist(data, account_id, books_size, temp_index);
@@ -489,36 +488,35 @@ option:
                     books_available(data);
 
                     borrowed_size = borrowed_length();
-                    user_loans(onloans);
+                    user_loans(onloan);
 
                     header();
 
-                    printf("%d", borrowed_size);
-
-                    printf("\033[1;33mOn loans");
+                    printf("\033[1;33mOn loans (%s)", account_id);
                     printf("\033[0m");
                     enter(1);
 
                     printf("\033[33m");
                     table_border("TRUE");
-                    printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Page", "Year", "Available");
-                    table_border("TRUE");
+                    printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Page", "Year", "Quantity");
                     printf("\033[0m");
 
-                    for (int onloans_index = 0; onloans_index < borrowed_size; onloans_index++)
+                    for (int onloan_index = 0; onloan_index < borrowed_size; onloan_index++)
                     {
                         for (int books_index = 0; books_index < books_size; books_index++)
                         {
-                            if (onloans[onloans_index].book_id == data[books_index].id)
+                            if (onloan[onloan_index].book_id == data[books_index].id)
                             {
-                                table_row(data, books_index);
+                                onloan_table_row(data, books_index);
                             }
                         }
                         table_border("TRUE");
                         printf("\033[0m");
                     }
 
-                    enter(35 - (pow(borrowed_size, 2)) - 6);
+                    int free_space = borrowed_size * borrowed_size;
+
+                    enter(35 - free_space - 4);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
 
                 user_cmd_option3:
@@ -550,6 +548,117 @@ option:
                             option_invalid();
 
                             goto user_cmd_option3;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
+                        }
+                    }
+                }
+                else
+                {
+                    numof_trials = 0;
+
+                    books_size = booklist_length();
+                    books_available(data);
+
+                    borrowed_size = borrowed_length();
+                    user_loans(onloan);
+
+                return_books:
+                    header();
+
+                    printf("\033[1;33mReturn books");
+                    printf("\033[0m");
+                    enter(1);
+
+                    printf("\033[33mEnter book ID: ");
+                    scanf("%u", &book_id);
+                    enter(1);
+                    printf("\033[0m");
+
+                    for (int index = 0; index < borrowed_size; index++)
+                    {
+                        if (index == (borrowed_size - 1))
+                        {
+                            if ((strcmp(onloan[index].username, account_id) == 0) && (onloan[index].book_id != book_id))
+                            {
+                                book_status(win_linux, 2);
+
+                                goto return_books;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if ((strcmp(onloan[index].username, account_id) == 0) && (onloan[index].book_id == book_id))
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+
+                    for (int index = 0; index < books_size; index++)
+                    {
+                        if (data[index].id == book_id)
+                        {
+                            timesleep(1, "TRUE", win_linux);
+
+                            printf("\033[33mBook returning successful!");
+                            printf("\033[0m");
+                            enter(1);
+
+                            data[index].available++;
+                        }
+                    }
+
+                    print_books(data, books_size);
+                    print_loans(onloan, borrowed_size, book_id);
+
+                    enter(25);
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                user_cmd_option4:
+                    home_escape();
+
+                    scanf("%s", cmd_option);
+                    printf("\033[0m");
+
+                    if (strcmp(cmd_option, "HOME") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto home;
+                    }
+                    else if (strcmp(cmd_option, "ESCAPE") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto user_menu;
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto user_cmd_option4;
                         }
                         else
                         {
