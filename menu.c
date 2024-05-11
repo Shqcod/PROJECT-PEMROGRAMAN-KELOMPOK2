@@ -1,12 +1,20 @@
 // import header.h
 #include "header.h"
 
+// header function
+void header()
+{
+    hyphen("\033[1;33m", 130, 10, "TRUE");
+    printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
+    hyphen("\033[1;33m", 130, 10, "TRUE");
+}
+
 // book list length function
 int booklist_length()
 {
     FILE *input_fp;
 
-    char books[1024], row[256];
+    char books[2048], row[512];
     int size;
 
     input_fp = fopen("books.txt", "r");
@@ -38,7 +46,7 @@ int borrowed_length()
 {
     FILE *input_fp;
 
-    char data[512], row[256];
+    char data[1024], row[256];
     int size;
 
     input_fp = fopen("borrowed.txt", "r");
@@ -150,6 +158,30 @@ void login_end()
     enter(16);
 }
 
+// option length function
+void option_length(int length)
+{
+    printf("\033[1;30;43m[");
+
+    for (int num = 1; num <= length; num++)
+    {
+        printf("\033[1;30;43m%d", num);
+
+        if (num < length)
+        {
+            printf("\033[1;30;43m/");
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    printf("\033[1;30;43m]");
+    printf("\033[0m");
+    printf("\033[33m: ");
+}
+
 // option invalid function
 void option_invalid()
 {
@@ -166,6 +198,14 @@ void option_end()
     printf("\033[33mInvalid option 3 times. Try again later! \nThe program will close in 3 seconds");
     printf("\033[0m");
     enter(1);
+}
+
+// home/escape function
+void home_escape()
+{
+    printf("\033[1;30;43m[HOME/ESCAPE]");
+    printf("\033[0m");
+    printf("\033[33m: ");
 }
 
 // goodbye screen function

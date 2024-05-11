@@ -46,9 +46,8 @@ home:
     int option = 0, numof_trials = 0;
 
 option:
-    printf("\033[1;30;43m[1/2/3]");
-    printf("\033[0m");
-    printf("\033[33m: ");
+    option_length(3);
+
     scanf("%d", &option);
     printf("\033[0m");
 
@@ -69,9 +68,7 @@ option:
             return EXIT_FAILURE;
         }
 
-        hyphen("\033[1;33m", 130, 10, "TRUE");
-        printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
-        hyphen("\033[1;33m", 130, 10, "TRUE");
+        header();
 
         printf("\033[1;33mAdmin log in \n");
         printf("\033[0m");
@@ -107,9 +104,7 @@ option:
             system_clear(win_linux);
             loading(35, win_linux);
 
-            hyphen("\033[1;33m", 130, 10, "TRUE");
-            printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
-            hyphen("\033[1;33m", 130, 10, "TRUE");
+            header();
 
             admin_menu();
             enter(25);
@@ -117,9 +112,8 @@ option:
             hyphen("\033[1;33m", 130, 10, "TRUE");
 
         admin_option:
-            printf("\033[1;30;43m[1/2/3/4/5]");
-            printf("\033[0m");
-            printf("\033[33m: ");
+            option_length(5);
+
             scanf("%d", &option);
             printf("\033[0m");
 
@@ -221,9 +215,7 @@ option:
             return EXIT_FAILURE;
         }
 
-        hyphen("\033[1;33m", 130, 10, "TRUE");
-        printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
-        hyphen("\033[1;33m", 130, 10, "TRUE");
+        header();
 
         printf("\033[1;33mUser log in \n");
         printf("\033[0m");
@@ -262,9 +254,7 @@ option:
             loading(35, win_linux);
 
         user_menu:
-            hyphen("\033[1;33m", 130, 10, "TRUE");
-            printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
-            hyphen("\033[1;33m", 130, 10, "TRUE");
+            header();
 
             user_menu();
             enter(24);
@@ -272,9 +262,8 @@ option:
             hyphen("\033[1;33m", 130, 10, "TRUE");
 
         user_option:
-            printf("\033[1;30;43m[1/2/3/4/5/6]");
-            printf("\033[0m");
-            printf("\033[33m: ");
+            option_length(6);
+
             scanf("%d", &option);
             printf("\033[0m");
 
@@ -289,14 +278,15 @@ option:
 
                     books_size = booklist_length();
 
-                    hyphen("\033[1;33m", 130, 10, "TRUE");
-                    printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
-                    hyphen("\033[1;33m", 130, 10, "TRUE");
+                    header();
 
                     books_available(data);
 
-                    printf("\033[33m");
+                    printf("\033[1;33mBook list");
+                    printf("\033[0m");
+                    enter(1);
 
+                    printf("\033[33m");
                     table_border("TRUE");
                     printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Page", "Year", "Available");
                     table_border("TRUE");
@@ -310,13 +300,12 @@ option:
                     table_border("TRUE");
                     printf("\033[0m");
 
-                    enter(30 - books_size - 4);
+                    enter(29 - books_size - 4);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
 
                 user_cmd_option1:
-                    printf("\033[1;30;43m[HOME/ESCAPE]");
-                    printf("\033[0m");
-                    printf("\033[33m: ");
+                    home_escape();
+
                     scanf("%s", cmd_option);
                     printf("\033[0m");
 
@@ -369,9 +358,11 @@ option:
                     user_loans(onloans);
 
                 borrow_books:
-                    hyphen("\033[1;33m", 130, 10, "TRUE");
-                    printin_center("%*s", "\033[1;30;43m+[ E-LIBRARY ]+", 130, 10, "TRUE");
-                    hyphen("\033[1;33m", 130, 10, "TRUE");
+                    header();
+
+                    printf("\033[1;33mBorrow books");
+                    printf("\033[0m");
+                    enter(1);
 
                     printf("\033[33mEnter book ID: ");
                     scanf("%u", &book_id);
@@ -432,7 +423,7 @@ option:
                                 break;
                             }
                         }
-                        else if ((index == (books_size - 1)) && data[index].id != book_id)
+                        else if ((index == (books_size - 1)) && (data[index].id != book_id))
                         {
                             book_status(win_linux, 2);
 
@@ -444,15 +435,14 @@ option:
                         }
                     }
 
-                    enter(26);
+                    enter(25);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
 
                     print_newlist(data, account_id, books_size, temp_index);
 
                 user_cmd_option2:
-                    printf("\033[1;30;43m[HOME/ESCAPE]");
-                    printf("\033[0m");
-                    printf("\033[33m: ");
+                    home_escape();
+
                     scanf("%s", cmd_option);
                     printf("\033[0m");
 

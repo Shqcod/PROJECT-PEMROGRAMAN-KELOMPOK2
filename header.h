@@ -26,6 +26,7 @@ typedef struct loans
 } user;
 
 // function prototype
+void header();
 int booklist_length();
 int borrowed_length();
 void welcome_screen();
@@ -44,10 +45,12 @@ void loading(int screen_width, char *arg);
 void system_clear(char *clear_arg);
 void option_invalid();
 void option_end();
+void home_escape();
 void admin_menu();
 void user_menu();
 void login_invalid();
 void login_end();
+void option_length(int length);
 void books_available(book data[]);
 void user_loans(user onloans[]);
 void table_row(book data[], int index);
