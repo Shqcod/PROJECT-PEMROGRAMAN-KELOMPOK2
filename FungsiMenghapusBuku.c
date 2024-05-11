@@ -1,4 +1,4 @@
-// Fungsi untuk menghapus buku
+// Fungsi menghapus buku
 void hapusBuku(struct Buku *buku, int *jumlahBuku) {
     unsigned int id;
     printf("Masukkan ID buku yang ingin dihapus: ");
