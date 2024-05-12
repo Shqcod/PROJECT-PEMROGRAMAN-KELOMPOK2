@@ -140,7 +140,7 @@ void add_books(unsigned int id, char title[], char author[], unsigned int page, 
 
     timesleep(1, "TRUE", win_linux);
 
-    printf("\033[33mBook added successfully!");
+    printf("\033[33mBook successfully added!");
     printf("\033[0m");
 
     enter(22);
@@ -175,7 +175,7 @@ void delete_books(book data[], unsigned int book_id, int books_size, char *win_l
 
     timesleep(1, "TRUE", win_linux);
 
-    printf("\033[33mBook deleted successfully!");
+    printf("\033[33mBook successfully deleted!");
     printf("\033[0m");
 
     fclose(output_fp);

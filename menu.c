@@ -154,7 +154,7 @@ void newacc_end()
 void newacc_success()
 {
     enter(17);
-    printin_center("%*s", "\033[1;33mNew account successfully created!", 130, 10, "FALSE");
+    printin_center("%*s", "\033[1;33mAccount successfully created!", 130, 10, "FALSE");
     printf("\033[0m");
     enter(17);
 }

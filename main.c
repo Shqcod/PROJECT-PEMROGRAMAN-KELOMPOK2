@@ -495,7 +495,7 @@ option:
 
                     timesleep(1, "FALSE", win_linux);
 
-                    printf("\033[33mBook modified successfully!");
+                    printf("\033[33mBook successfully modified!");
                     printf("\033[0m");
 
                     enter(27);
@@ -829,7 +829,7 @@ option:
 
                                 timesleep(1, "TRUE", win_linux);
 
-                                printf("\033[33mBook borrowing successful!");
+                                printf("\033[33mBook successfully borrowed!");
                                 printf("\033[0m");
                                 enter(1);
 
@@ -905,8 +905,6 @@ option:
 
                     borrowed_size = borrowed_length();
                     user_loans(onloan);
-
-                    printf("%d", borrowed_size);
 
                     header();
 
@@ -1042,7 +1040,7 @@ option:
                         {
                             timesleep(1, "TRUE", win_linux);
 
-                            printf("\033[33mBook returning successful!");
+                            printf("\033[33mBook successfully returned!");
                             printf("\033[0m");
                             enter(1);
 
