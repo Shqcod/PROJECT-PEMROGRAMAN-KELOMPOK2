@@ -25,4 +25,4 @@ void lihatyangsedangdipinjem(struct Buku *buku, unsigned int *jumlahBuku) {
 
 printf("Lihat Buku yang sudah di pinjem di file pinjaman.txt");
 SimpanDataBukuYangsedangdipinjam(buku, jumlahBuku);
-lihatyangsedangdipinjem(buku, &jumlahBuku);
+lihatyangsedangdipinjem(, &jumlahBuku);
