@@ -59,6 +59,7 @@ void table_border(char *enter);
 void book_status(char *win_linux, int option);
 void add_books(unsigned int id, char title[], char author[], unsigned int page, unsigned int pub_year, unsigned int quantity, char *win_linux);
 void delete_books(book data[], unsigned int book_id, int books_size, char *win_linux);
+void modify_books(book data[], unsigned int book_id, int books_size, int option, int numof_trials);
 void print_newlist(book data[], char *account_id, int books_size, int temp_index);
 void print_books(book data[], int books_size);
 void print_loans(user onloan[], int borrowed_size, int book_id);

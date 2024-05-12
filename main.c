@@ -221,7 +221,7 @@ option:
                     scanf(" %[^\n]s", title);
                     printf("\033[33mAuthor\t\t: ");
                     scanf(" %[^\n]s", author);
-                    printf("\033[33mNumber of page\t: ");
+                    printf("\033[33mNum. of page\t: ");
                     scanf("%u", &page);
                     printf("\033[33mPub. year\t: ");
                     scanf("%u", &pub_year);
@@ -436,6 +436,105 @@ option:
                             {
                                 continue;
                             }
+                        }
+                    }
+
+                    timesleep(1, "FALSE", win_linux);
+
+                    printf("\033[1;33mOption");
+                    printf("\033[0m");
+                    enter(1);
+
+                    printf("\033[33m1. Title\n");
+                    printf("\033[33m2. Author\n");
+                    printf("\033[33m3. Num. of page\n");
+                    printf("\033[33m4. Pub. year\n");
+                    printf("\033[33m5. Quantity\n");
+                    printf("\033[0m");
+
+                    enter(21);
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                modify_options:
+                    option_length(5);
+
+                    scanf("%d", &option);
+                    printf("\033[0m");
+
+                    system_clear(win_linux);
+                    loading(35, win_linux);
+
+                    if (option >= 1 && option <= 5)
+                    {
+                        modify_books(data, book_id, books_size, option, numof_trials);
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto modify_options;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
+                        }
+                    }
+
+                    timesleep(1, "FALSE", win_linux);
+
+                    printf("\033[33mBook modified successfully!");
+                    printf("\033[0m");
+
+                    enter(27);
+                    hyphen("\033[1;33m", 130, 10, "TRUE");
+
+                admin_cmd_option4:
+                    home_escape();
+
+                    scanf("%s", cmd_option);
+                    printf("\033[0m");
+
+                    if (strcmp(cmd_option, "HOME") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto home;
+                    }
+                    else if (strcmp(cmd_option, "ESCAPE") == 0)
+                    {
+                        system_clear(win_linux);
+                        loading(35, win_linux);
+
+                        goto admin_menu;
+                    }
+                    else
+                    {
+                        numof_trials++;
+
+                        if (numof_trials < 3)
+                        {
+                            option_invalid();
+
+                            goto admin_cmd_option4;
+                        }
+                        else
+                        {
+                            option_end();
+
+                            timesleep(3, "FALSE", win_linux);
+                            system_clear(win_linux);
+
+                            return EXIT_FAILURE;
                         }
                     }
                 }

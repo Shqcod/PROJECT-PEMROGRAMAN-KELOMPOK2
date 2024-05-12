@@ -179,6 +179,167 @@ void delete_books(book data[], unsigned int book_id, int books_size, char *win_l
     fclose(output_fp);
 }
 
+void modify_books(book data[], unsigned int book_id, int books_size, int option, int numof_trials)
+{
+    if (option == 1)
+    {
+        numof_trials = 0;
+
+        char title[128];
+
+        header();
+
+        printf("\033[1;33mModify title");
+        printf("\033[0m");
+        enter(1);
+
+        printf("\033[33mEnter title: ");
+        scanf(" %[^\n]s", title);
+        enter(1);
+        printf("\033[0m");
+
+        for (int index = 0; index < books_size; index++)
+        {
+            if (data[index].id == book_id)
+            {
+                strcpy(data[index].title, title);
+
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+    else if (option == 2)
+    {
+        numof_trials = 0;
+
+        char author[128];
+
+        header();
+
+        printf("\033[1;33mModify author");
+        printf("\033[0m");
+        enter(1);
+
+        printf("\033[33mEnter author: ");
+        scanf(" %[^\n]s", author);
+        enter(1);
+        printf("\033[0m");
+
+        for (int index = 0; index < books_size; index++)
+        {
+            if (data[index].id == book_id)
+            {
+                strcpy(data[index].author, author);
+
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+    else if (option == 3)
+    {
+        numof_trials = 0;
+
+        unsigned int numof_page;
+
+        header();
+
+        printf("\033[1;33mModify num. of page");
+        printf("\033[0m");
+        enter(1);
+
+        printf("\033[33mEnter num. of page: ");
+        scanf("%u", &numof_page);
+        enter(1);
+        printf("\033[0m");
+
+        for (int index = 0; index < books_size; index++)
+        {
+            if (data[index].id == book_id)
+            {
+                data[index].page = numof_page;
+
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+    else if (option == 4)
+    {
+        numof_trials = 0;
+
+        unsigned int pub_year;
+
+        header();
+
+        printf("\033[1;33mModify pub. year");
+        printf("\033[0m");
+        enter(1);
+
+        printf("\033[33mEnter pub. year: ");
+        scanf("%u", &pub_year);
+        enter(1);
+        printf("\033[0m");
+
+        for (int index = 0; index < books_size; index++)
+        {
+            if (data[index].id == book_id)
+            {
+                data[index].pub_year = pub_year;
+
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+    else
+    {
+        numof_trials = 0;
+
+        unsigned int quantity;
+
+        header();
+
+        printf("\033[1;33mModify quantity");
+        printf("\033[0m");
+        enter(1);
+
+        printf("\033[33mEnter quantity: ");
+        scanf("%u", &quantity);
+        enter(1);
+        printf("\033[0m");
+
+        for (int index = 0; index < books_size; index++)
+        {
+            if (data[index].id == book_id)
+            {
+                data[index].available = quantity;
+
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+
+    print_books(data, books_size);
+}
+
 // print new book list to both file function
 void print_newlist(book data[], char *account_id, int books_size, int temp_index)
 {
