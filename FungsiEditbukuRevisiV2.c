@@ -51,6 +51,6 @@
     }
 }
 
-// panggil 
+//
 editBuku(buku, jumlahBuku);
 simpanDataBuku(buku, jumlahBuku);
