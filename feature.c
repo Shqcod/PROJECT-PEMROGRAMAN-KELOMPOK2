@@ -134,6 +134,8 @@ void add_books(unsigned int id, char title[], char author[], unsigned int page, 
 {
     FILE *output_fp;
 
+    output_fp = fopen("books.txt", "a");
+
     fprintf(output_fp, "\n%u \"%s\" \"%s\" %u %u %u", id, title, author, page, pub_year, quantity);
 
     timesleep(1, "TRUE", win_linux);
@@ -173,7 +175,7 @@ void delete_books(book data[], unsigned int book_id, int books_size, char *win_l
 
     timesleep(1, "TRUE", win_linux);
 
-    printf("\033[33mBook added successfully!");
+    printf("\033[33mBook deleted successfully!");
     printf("\033[0m");
 
     fclose(output_fp);
@@ -189,11 +191,11 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
 
         header();
 
-        printf("\033[1;33mModify title");
+        printf("\033[1;33mModify book title");
         printf("\033[0m");
         enter(1);
 
-        printf("\033[33mEnter title: ");
+        printf("\033[33mNew title: ");
         scanf(" %[^\n]s", title);
         enter(1);
         printf("\033[0m");
@@ -220,11 +222,11 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
 
         header();
 
-        printf("\033[1;33mModify author");
+        printf("\033[1;33mModify author name");
         printf("\033[0m");
         enter(1);
 
-        printf("\033[33mEnter author: ");
+        printf("\033[33mNew author name: ");
         scanf(" %[^\n]s", author);
         enter(1);
         printf("\033[0m");
@@ -247,16 +249,16 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
     {
         numof_trials = 0;
 
-        unsigned int numof_page;
+        unsigned int numof_pages;
 
         header();
 
-        printf("\033[1;33mModify num. of page");
+        printf("\033[1;33mModify num. of pages");
         printf("\033[0m");
         enter(1);
 
-        printf("\033[33mEnter num. of page: ");
-        scanf("%u", &numof_page);
+        printf("\033[33mNew num. of pages: ");
+        scanf("%u", &numof_pages);
         enter(1);
         printf("\033[0m");
 
@@ -264,7 +266,7 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
         {
             if (data[index].id == book_id)
             {
-                data[index].page = numof_page;
+                data[index].page = numof_pages;
 
                 break;
             }
@@ -286,7 +288,7 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
         printf("\033[0m");
         enter(1);
 
-        printf("\033[33mEnter pub. year: ");
+        printf("\033[33mNew pub. year: ");
         scanf("%u", &pub_year);
         enter(1);
         printf("\033[0m");
@@ -317,7 +319,7 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
         printf("\033[0m");
         enter(1);
 
-        printf("\033[33mEnter quantity: ");
+        printf("\033[33mNew quantity: ");
         scanf("%u", &quantity);
         enter(1);
         printf("\033[0m");

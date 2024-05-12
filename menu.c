@@ -14,8 +14,8 @@ int booklist_length()
 {
     FILE *input_fp;
 
-    char books[2048], row[512];
-    int size;
+    char books[2048];
+    int size = 0;
 
     input_fp = fopen("books.txt", "r");
 
@@ -28,12 +28,7 @@ int booklist_length()
 
     while (fgets(books, sizeof(books), input_fp) != NULL)
     {
-        sscanf(books, "%[^\n]s", row);
-
-        if (strcmp(row, "\n"))
-        {
-            size++;
-        }
+        size++;
     }
 
     fclose(input_fp);
@@ -46,8 +41,8 @@ int borrowed_length()
 {
     FILE *input_fp;
 
-    char data[1024], row[128];
-    int size;
+    char data[1024];
+    int size = 0;
 
     input_fp = fopen("borrowed.txt", "r");
 
@@ -60,12 +55,7 @@ int borrowed_length()
 
     while (fgets(data, sizeof(data), input_fp) != NULL)
     {
-        sscanf(data, "%[^\n]s", row);
-
-        if (strcmp(row, "\n"))
-        {
-            size++;
-        }
+        size++;
     }
 
     fclose(input_fp);
@@ -104,9 +94,10 @@ void home_screen()
     printf("\033[0m");
     printf("\033[33m1. Administrator (full access) \n");
     printf("\033[33m2. User (limited access) \n");
-    printf("\033[33m3. Exit \n");
+    printf("\033[33m3. Create new account (User) \n");
+    printf("\033[33m4. Exit \n");
     printf("\033[0m");
-    enter(20);
+    enter(19);
 
     hyphen("\033[1;33m", 130, 10, "TRUE");
 }
@@ -137,6 +128,35 @@ void user_menu()
     printf("\033[33m5. Home\n");
     printf("\033[33m6. Exit\n");
     printf("\033[0m");
+}
+
+// create new account invalid function
+void newacc_invalid()
+{
+    enter(17);
+    printin_center("%*s", "\033[1;33mUsername already exists. Please try again!", 130, 10, "FALSE");
+    printf("\033[0m");
+    enter(17);
+}
+
+// create new account end function
+void newacc_end()
+{
+    enter(16);
+    printin_center("%*s", "\033[1;33mInvalid username 3 times. Try again later!", 130, 10, "FALSE");
+    enter(2);
+    printin_center("%*s", "\033[1;33mThe program will close in 3 seconds", 130, 10 - 2, "FALSE");
+    printf("\033[0m");
+    enter(16);
+}
+
+// create new account success function
+void newacc_success()
+{
+    enter(17);
+    printin_center("%*s", "\033[1;33mNew account successfully created!", 130, 10, "FALSE");
+    printf("\033[0m");
+    enter(17);
 }
 
 // log in invalid function

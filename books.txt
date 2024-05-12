@@ -2,7 +2,7 @@
 112 "Cracking the Coding" "G. L. McDowell" 687 2015 6
 113 "Python Crash Course" "E. Matthes" 44 2015 15
 114 "Computer Networking" "J. F. Kurose, K. W. Ross" 864 2016 10
-115 "Artificial Intelligence" "S. Russell, P. Norvig" 1132 2020 11
+115 "Artificial Intelligence" "S. Russell, P. Norvig" 1132 2020 12
 116 "Algorithms Unlocked" "T. H. Cormen" 240 2013 18
 117 "Effective Java" "J. Bloch" 432 2017 14
 118 "Programming Python" "M. Lutz" 1632 2019 20
