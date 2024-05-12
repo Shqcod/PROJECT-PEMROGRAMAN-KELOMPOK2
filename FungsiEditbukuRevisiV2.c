@@ -51,6 +51,6 @@
     }
 }
 
-//
+// Memanggil fungsi edit buku
 editBuku(buku, jumlahBuku);
 simpanDataBuku(buku, jumlahBuku);
