@@ -17,4 +17,3 @@
 217 "Learning Web Design" "J. N. Robbins" 808 2018 25
 218 "Information Security" "M. Stamp" 648 2011 6
 219 "The Internet of Money" "A. M. Antonopoulos" 150 2016 5
-220 "Blockchain Basics" "D. Drescher" 255 2017 12

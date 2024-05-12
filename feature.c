@@ -2,6 +2,7 @@
 #include "header.h"
 
 // books available function
+// Fungsi untuk membaca data buku dari file "books.txt" dan menyimpannya dalam array 'data'.
 void books_available(book data[])
 {
     FILE *input_fp;
@@ -26,6 +27,7 @@ void books_available(book data[])
 }
 
 // table row function
+// Fungsi untuk mencetak satu baris tabel dengan data buku pada indeks tertentu.
 void table_row(book data[], int index)
 {
     printf("\033[33m");
@@ -34,6 +36,7 @@ void table_row(book data[], int index)
 }
 
 // on loan table row function
+// Fungsi untuk mencetak satu baris tabel untuk buku yang sedang dipinjam.
 void onloan_table_row(book data[], int index)
 {
     printf("\033[33m");
@@ -42,6 +45,7 @@ void onloan_table_row(book data[], int index)
 }
 
 // table border function
+// Fungsi untuk mencetak garis pembatas tabel.
 void table_border(char *enter)
 {
     printf("\033[1;33m+");
@@ -73,6 +77,7 @@ void table_border(char *enter)
 }
 
 // user loans function
+// Fungsi untuk membaca data peminjaman buku dari file "borrowed.txt" dan menyimpannya dalam array 'onloan'.
 void user_loans(user onloan[])
 {
     FILE *input_fp;
@@ -97,6 +102,7 @@ void user_loans(user onloan[])
 }
 
 // book status function
+// Fungsi untuk mencetak status buku berdasarkan pilihan.
 void book_status(char *win_linux, int option)
 {
     if (option == 1)
@@ -130,6 +136,7 @@ void book_status(char *win_linux, int option)
 }
 
 // print to file (added books) function
+// Fungsi untuk menambahkan data buku ke file "books.txt".
 void add_books(unsigned int id, char title[], char author[], unsigned int page, unsigned int pub_year, unsigned int quantity, char *win_linux)
 {
     FILE *output_fp;
@@ -150,6 +157,7 @@ void add_books(unsigned int id, char title[], char author[], unsigned int page, 
 }
 
 // print to file (deleted book) function
+// Fungsi untuk menghapus data buku dari file "books.txt" berdasarkan ID buku.
 void delete_books(book data[], unsigned int book_id, int books_size, char *win_linux)
 {
     FILE *output_fp;
@@ -181,6 +189,8 @@ void delete_books(book data[], unsigned int book_id, int books_size, char *win_l
     fclose(output_fp);
 }
 
+// Modify books function
+// Fungsi untuk mengubah data buku dalam array 'data' berdasarkan pilihan.
 void modify_books(book data[], unsigned int book_id, int books_size, int option, int numof_trials)
 {
     if (option == 1)
@@ -343,6 +353,7 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
 }
 
 // print new book list to both file function
+// Fungsi untuk mencetak daftar buku baru ke file "borrowed.txt" dan "books.txt".
 void print_newlist(book data[], char *account_id, int books_size, int temp_index)
 {
     FILE *output_fp;
@@ -372,6 +383,7 @@ void print_newlist(book data[], char *account_id, int books_size, int temp_index
 }
 
 // print new book list to file function
+// Fungsi untuk mencetak daftar buku baru ke file "books.txt".
 void print_books(book data[], int books_size)
 {
     FILE *output_fp;
@@ -396,6 +408,7 @@ void print_books(book data[], int books_size)
 }
 
 // print new loans function
+// Fungsi untuk mencetak daftar peminjaman baru ke file "borrowed.txt" berdasarkan ID buku.
 void print_loans(user onloan[], int borrowed_size, int book_id)
 {
     FILE *output_fp;
