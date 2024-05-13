@@ -2,6 +2,7 @@
 #include "header.h"
 
 // header function
+// Menampilkan header dengan garis pemisah di atas dan di bawah teks.
 void header()
 {
     hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -10,6 +11,7 @@ void header()
 }
 
 // book list length function
+// Menghitung jumlah baris dalam file "books.txt" untuk mengetahui panjang daftar buku.
 int booklist_length()
 {
     FILE *input_fp;
@@ -37,6 +39,7 @@ int booklist_length()
 }
 
 // borrowed books length function
+// Menghitung jumlah baris dalam file "borrowed.txt" untuk mengetahui panjang daftar buku yang dipinjam.
 int borrowed_length()
 {
     FILE *input_fp;
@@ -64,6 +67,7 @@ int borrowed_length()
 }
 
 // welcome screen function
+// Menampilkan layar sambutan dengan teks "WELCOME TO E-LIBRARY" dan pesan informatif.
 void welcome_screen()
 {
     enter(16);
@@ -76,6 +80,7 @@ void welcome_screen()
 }
 
 // home screen function
+// Menampilkan layar beranda dengan opsi untuk login sebagai administrator atau user.
 void home_screen()
 {
     hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -103,6 +108,8 @@ void home_screen()
 }
 
 // admin menu function
+// Menampilkan menu untuk administrator
+// Termasuk pilihan untuk melihat daftar buku, menambah buku, menghapus buku, memodifikasi buku, kembali ke beranda, dan keluar.
 void admin_menu()
 {
     printf("\033[1;33mAdmin menu\n");
@@ -117,6 +124,8 @@ void admin_menu()
 }
 
 // user menu function
+// Menampilkan menu untuk user
+// Termasuk pilihan untuk melihat buku yang tersedia, meminjam buku, melihat buku yang dipinjam, mengembalikan buku, kembali ke beranda, dan keluar.
 void user_menu()
 {
     printf("\033[1;33mUser menu\n");
@@ -131,6 +140,7 @@ void user_menu()
 }
 
 // create new account invalid function
+// Menampilkan pesan kesalahan ketika pembuatan akun baru gagal karena nama pengguna sudah ada.
 void newacc_invalid()
 {
     enter(17);
@@ -140,6 +150,7 @@ void newacc_invalid()
 }
 
 // create new account end function
+// Menampilkan pesan kesalahan saat pembuatan akun baru gagal setelah 3 kali percobaan yang tidak valid.
 void newacc_end()
 {
     enter(16);
@@ -151,6 +162,7 @@ void newacc_end()
 }
 
 // create new account success function
+// Menampilkan pesan sukses saat pembuatan akun baru berhasil.
 void newacc_success()
 {
     enter(17);
@@ -160,6 +172,7 @@ void newacc_success()
 }
 
 // log in invalid function
+// Menampilkan pesan kesalahan ketika login gagal karena nama pengguna atau kata sandi tidak valid.
 void login_invalid()
 {
     enter(17);
@@ -169,6 +182,7 @@ void login_invalid()
 }
 
 // log in end function
+// Menampilkan pesan kesalahan saat login gagal setelah 3 kali percobaan yang tidak valid.
 void login_end()
 {
     enter(16);
@@ -180,6 +194,7 @@ void login_end()
 }
 
 // option length function
+// Menampilkan panjang opsi yang tersedia untuk dipilih.
 void option_length(int length)
 {
     printf("\033[1;30;43m[");
@@ -204,6 +219,7 @@ void option_length(int length)
 }
 
 // option invalid function
+// Menampilkan pesan kesalahan ketika opsi yang dimasukkan tidak valid.
 void option_invalid()
 {
     printf("\033[1;33m-> ");
@@ -214,6 +230,7 @@ void option_invalid()
 }
 
 // option end function
+// Menampilkan pesan kesalahan setelah 3 kali percobaan memasukkan opsi yang tidak valid.
 void option_end()
 {
     printf("\033[33mInvalid option 3 times. Try again later! \nThe program will close in 3 seconds");
@@ -222,6 +239,7 @@ void option_end()
 }
 
 // home/escape function
+// Menampilkan instruksi untuk kembali ke beranda atau keluar dari program.
 void home_escape()
 {
     printf("\033[1;30;43m[HOME/ESCAPE]");
@@ -230,6 +248,7 @@ void home_escape()
 }
 
 // goodbye screen function
+// Menampilkan layar perpisahan dengan teks "Goodbye!".
 void goodbye_screen()
 {
     enter(17);

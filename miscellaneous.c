@@ -75,6 +75,7 @@
 \e[0m 	Reset/Default */
 
 // print text in_center function
+// Mencetak teks yang diatur di tengah layar dengan jenis string tertentu dan margin tertentu.
 void printin_center(char *typeof_str, char *string, int screen_xy, int margin, char *enter)
 {
     screen_xy = (screen_xy / 2);
@@ -109,6 +110,7 @@ void printin_center(char *typeof_str, char *string, int screen_xy, int margin, c
 }
 
 // print text in left function
+// Mencetak teks yang diatur di kiri layar dengan jenis string tertentu dan margin tertentu.
 void printin_left(char *typeof_str, char *string, int margin, char *enter)
 {
     printf(typeof_str, margin, string);
@@ -129,6 +131,7 @@ void printin_left(char *typeof_str, char *string, int margin, char *enter)
 }
 
 // print text in right function
+// Mencetak teks yang diatur di kanan layar dengan jenis string tertentu dan margin tertentu.
 void printin_right(char *typeof_str, char *string, int screen_xy, int margin, char *enter)
 {
     int condition;
@@ -160,6 +163,7 @@ void printin_right(char *typeof_str, char *string, int screen_xy, int margin, ch
 }
 
 // print text in uppercase function
+// Mencetak teks dalam huruf kapital dari sebuah string.
 void printin_uppercase(char *typeof_str, char *string)
 {
     char temp_string[strlen(string)];
@@ -182,6 +186,7 @@ void printin_uppercase(char *typeof_str, char *string)
 }
 
 // print text in lowercase function
+// Mencetak teks dalam huruf kecil dari sebuah string.
 void printin_lowercase(char *typeof_str, char *string)
 {
 
@@ -205,6 +210,7 @@ void printin_lowercase(char *typeof_str, char *string)
 }
 
 // print hyphen (-) function
+// Mencetak garis pemisah (hyphen) sepanjang panjang tertentu dengan warna tertentu dan margin tertentu.
 void hyphen(char *color, int hyphen_length, int margin, char *enter)
 {
     int condition;
@@ -240,6 +246,7 @@ void hyphen(char *color, int hyphen_length, int margin, char *enter)
 }
 
 // print enter function
+// Memasukkan baris kosong sebanyak yang diinginkan.
 void enter(int row_length)
 {
     for (int number = 1; number <= row_length; number++)
@@ -249,6 +256,7 @@ void enter(int row_length)
 }
 
 // print clear char function
+// Menghapus karakter dari posisi saat ini sebanyak yang diinginkan.
 void clear_char(int clear_length)
 {
     for (int number = 1; number <= clear_length; number++)
@@ -258,6 +266,7 @@ void clear_char(int clear_length)
 }
 
 // print backspace function
+// Menghapus karakter sebelum posisi saat ini sebanyak yang diinginkan.
 void backspace(int backspace_length)
 {
     for (int number = 1; number <= backspace_length; number++)
@@ -267,6 +276,7 @@ void backspace(int backspace_length)
 }
 
 // time sleep function
+// Memberi jeda waktu dengan batas waktu tertentu.
 void timesleep(float limit, char *print_escape, char *power_arg)
 {
     float seconds = 0;
@@ -307,6 +317,7 @@ void timesleep(float limit, char *print_escape, char *power_arg)
 }
 
 // loading screen function
+// Menampilkan layar loading dengan animasi loading.
 void loading(int screen_width, char *arg)
 {
     int half_screen_width = (screen_width / 2);
@@ -348,6 +359,7 @@ void loading(int screen_width, char *arg)
 }
 
 // system clear function
+// Membersihkan layar konsol tergantung pada platform yang digunakan (Windows atau Linux).
 void system_clear(char *clear_arg)
 {
     if (strcmp(clear_arg, "WIN") == 0)
