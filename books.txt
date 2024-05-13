@@ -1,19 +1,20 @@
-111 "Clean Code" "R. C. Martin" 464 2008 7
-112 "Cracking the Coding" "G. L. McDowell" 687 2015 6
-113 "Python Crash Course" "E. Matthes" 44 2015 15
-114 "Computer Networking" "J. F. Kurose, K. W. Ross" 864 2016 10
-115 "Artificial Intelligence" "S. Russell, P. Norvig" 1132 2020 12
-116 "Algorithms Unlocked" "T. H. Cormen" 240 2013 18
-117 "Effective Java" "J. Bloch" 432 2017 14
-118 "Programming Python" "M. Lutz" 1632 2019 20
-119 "Learning SQL" "A. Beaulieu" 338 2009 15
-120 "Hacking" "J. Erickson" 488 2008 20
-211 "Rapid Development" "S. McConnell" 672 1996 12
-212 "Security Engineering" "R. J. Anderson" 1060 2008 8
-213 "Java" "H. Schildt" 12 2018 14
-214 "Programming Pearls" "J. Bentley" 256 1999 16
-215 "Software Engineering" "R. S. Pressman" 992 2014 22
-216 "Computer Security" "W. Stallings, L. Brown" 864 2018 25
-217 "Learning Web Design" "J. N. Robbins" 808 2018 25
-218 "Information Security" "M. Stamp" 648 2011 6
-219 "The Internet of Money" "A. M. Antonopoulos" 150 2016 5
+111 "Clean Code" "R. C. Martin" "Prentice Hall" 464 2008 7
+112 "Cracking the Coding" "G. L. McDowell" "CareerCup" 687 2015 6
+113 "Python Crash Course" "E. Matthes" "No Starch Press" 44 2015 15
+114 "Computer Networking" "J. F. Kurose, K. W. Ross" "Pearson" 864 2016 10
+115 "Artificial Intelligence" "S. Russell, P. Norvig" "Pearson" 1132 2020 12
+116 "Algorithms Unlocked" "T. H. Cormen" "The MIT Press" 240 2013 18
+117 "Effective Java" "J. Bloch" "Addison-Wesley" 432 2017 14
+118 "Programming Python" "M. Lutz" "O'Reilly Media" 1632 2019 20
+119 "Learning SQL" "A. Beaulieu" "O'Reilly Media" 338 2009 15
+120 "Hacking" "J. Erickson" "No Starch Media" 488 2008 20
+211 "Rapid Development" "S. McConnell" "Microsoft Press" 672 1996 12
+212 "Security Engineering" "R. J. Anderson" "Wiley" 1060 2008 8
+213 "Java" "H. Schildt" "McGraw-Hill Education" 12 2018 14
+214 "Programming Pearls" "J. Bentley" "Addison-Wesley" 256 1999 16
+215 "Software Engineering" "R. S. Pressman" "McGraw-Hill" 992 2014 22
+216 "Computer Security" "W. Stallings, L. Brown" "Pearson" 864 2018 25
+217 "Learning Web Design" "J. N. Robbins" "O'Reilly Media" 808 2018 25
+218 "Information Security" "M. Stamp" "Wiley" 648 2011 6
+219 "The Internet of Money" "A. M. Antonopoulos" "Merkle Bloom" 150 2016 5
+220 "Blockchain Basics" "D. Drescher" "Apress" 255 2017 12
