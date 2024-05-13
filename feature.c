@@ -152,7 +152,7 @@ void add_books(unsigned int id, char title[], char author[], char publisher[], u
     printf("\033[33mBook successfully added!");
     printf("\033[0m");
 
-    enter(22);
+    enter(21);
     hyphen("\033[1;33m", 130, 10, "TRUE");
 
     fclose(output_fp);
