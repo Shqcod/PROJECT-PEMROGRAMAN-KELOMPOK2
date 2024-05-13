@@ -99,7 +99,6 @@ option:
         enter(28);                             // Memberi jarak setelah proses autentikasi admin
         hyphen("\033[1;33m", 130, 10, "TRUE"); // Membuat garis pemisah dengan panjang ddan warna tertentu
         printf("\033[0m");                     // Menampilkan pesan standar untuk kembali ke tampilan awal
-      
 
         // Memeriksa apakah autentikasi admin berhasil
         if (strcmp(account_id, account_file) == 0 && strcmp(password, password_file) == 0)
@@ -115,8 +114,8 @@ option:
             header();
 
             admin_menu(); // Menampilkan menu admin
-          
             enter(23);    // Memberi jarak setelah menu admin ditampilkan
+
             hyphen("\033[1;33m", 130, 10, "TRUE"); // Membuat garis pemisah setelah menu admin
 
         admin_option:
@@ -242,7 +241,7 @@ option:
                     scanf(" %[^\n]s", title);
                     printf("\033[33mAuthor\t\t: ");
                     scanf(" %[^\n]s", author);
-                    printf("\033[33mPublisher\t\t: ");
+                    printf("\033[33mPublisher\t: ");
                     scanf(" %[^\n]s", publisher);
                     printf("\033[33mNum. of pages\t: ");
                     scanf("%u", &pages);
@@ -388,7 +387,7 @@ option:
                             }
                         }
                     }
-                  
+
                     // Memberikan jarak setelah proses penghapusan buku dan membuat garis pemisah
                     enter(27);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -659,7 +658,7 @@ option:
             fclose(input_fp);
 
             system_clear(win_linux);
-          
+
             // Jika percobaan masih kurang dari 3
             if (numof_trials < 3)
             {
