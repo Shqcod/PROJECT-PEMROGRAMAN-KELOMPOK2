@@ -11,18 +11,18 @@ int main(int argc, char *argv[])
 
     FILE *input_fp, *output_fp;
 
-    int books_size = booklist_length(); // Menentukan ukuran buku
+    int books_size = booklist_length();    // Menentukan ukuran buku
     int borrowed_size = borrowed_length(); // Menentukan ukuran buku yang dipinjam
 
-    book data[64]; // Array untuk menyimpan data buku
+    book data[64];   // Array untuk menyimpan data buku
     user onloan[32]; // Array untuk menyimpan data peminjam
 
-    char account_id[128], password[128]; // Variabel untuk menyimpan ID dan kata sandi pengguna
+    char account_id[128], password[128];        // Variabel untuk menyimpan ID dan kata sandi pengguna
     char account_file[128], password_file[128]; //  Variabel untuk menyimpan ID dan kata sandi dari file
-    char win_linux[8], accounts[256]; // Variabel untuk sistem operasi dan akun
-    char cmd_option[10]; // Variabel untuk opsi perintah
-    unsigned int book_id; // ID buku
-    int temp_index; // Indeks sementara
+    char win_linux[8], accounts[256];           // Variabel untuk sistem operasi dan akun
+    char cmd_option[10];                        // Variabel untuk opsi perintah
+    unsigned int book_id;                       // ID buku
+    int temp_index;                             // Indeks sementara
 
     if (argc == 2)
     {
@@ -35,12 +35,12 @@ int main(int argc, char *argv[])
     }
 
     system_clear(win_linux); // Membersihkan layar
-    loading(35, win_linux); // Memuat tampilan loading
+    loading(35, win_linux);  // Memuat tampilan loading
 
     welcome_screen(); // Menampilkan layar selamat datang
 
     timesleep(3, "FALSE", win_linux); // Menunggu beberapa detik
-    system_clear(win_linux); // Membersihkan layar
+    system_clear(win_linux);          // Membersihkan layar
 
 home:
     home_screen(); // Menampilkan layar utama
@@ -51,7 +51,7 @@ option:
     option_length(4); // Menentukan panjang opsi
 
     scanf("%d", &option); // Memasukkan opsi
-    printf("\033[0m"); // Membersihkan terminal
+    printf("\033[0m");    // Membersihkan terminal
 
     if (option == 1) // Jika opsi adalah 1 (masuk sebagai admin)
     {
@@ -96,9 +96,10 @@ option:
             }
         }
 
-        enter(28); // Memberi jarak setelah proses autentikasi admin
+        enter(28);                             // Memberi jarak setelah proses autentikasi admin
         hyphen("\033[1;33m", 130, 10, "TRUE"); // Membuat garis pemisah dengan panjang ddan warna tertentu
-        printf("\033[0m"); // Menampilkan pesan standar untuk kembali ke tampilan awal
+        printf("\033[0m");                     // Menampilkan pesan standar untuk kembali ke tampilan awal
+      
 
         // Memeriksa apakah autentikasi admin berhasil
         if (strcmp(account_id, account_file) == 0 && strcmp(password, password_file) == 0)
@@ -114,8 +115,8 @@ option:
             header();
 
             admin_menu(); // Menampilkan menu admin
-            enter(23); // Memberi jarak setelah menu admin ditampilkan
-
+          
+            enter(23);    // Memberi jarak setelah menu admin ditampilkan
             hyphen("\033[1;33m", 130, 10, "TRUE"); // Membuat garis pemisah setelah menu admin
 
         admin_option:
@@ -151,7 +152,7 @@ option:
 
                     printf("\033[33m");
                     table_border("TRUE");
-                    printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Pages", "Year", "Available");
+                    printf("| %-5s | %-27s | %-27s | %-25s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Publisher", "Pages", "Year", "Available");
                     table_border("TRUE");
                     printf("\033[0m");
 
@@ -217,6 +218,7 @@ option:
                     unsigned int id;
                     char title[128];
                     char author[128];
+                    char publisher[128];
                     unsigned int pages;
                     unsigned int pub_year;
                     unsigned int quantity;
@@ -240,6 +242,8 @@ option:
                     scanf(" %[^\n]s", title);
                     printf("\033[33mAuthor\t\t: ");
                     scanf(" %[^\n]s", author);
+                    printf("\033[33mPublisher\t\t: ");
+                    scanf(" %[^\n]s", publisher);
                     printf("\033[33mNum. of pages\t: ");
                     scanf("%u", &pages);
                     printf("\033[33mPub. year\t: ");
@@ -268,7 +272,7 @@ option:
                             if (index == (books_size - 1))
                             {
                                 // Jika buku belum ada, tambahkan buku ke daftar
-                                add_books(id, title, author, pages, pub_year, quantity, win_linux);
+                                add_books(id, title, author, publisher, pages, pub_year, quantity, win_linux);
 
                                 break;
                             }
@@ -384,7 +388,7 @@ option:
                             }
                         }
                     }
-                    
+                  
                     // Memberikan jarak setelah proses penghapusan buku dan membuat garis pemisah
                     enter(27);
                     hyphen("\033[1;33m", 130, 10, "TRUE");
@@ -417,7 +421,7 @@ option:
 
                         if (numof_trials < 3)
                         {
-                            // Jika pilihan tidak valid, beri pesan dan beri kesempatan untuk memasukkan lagi 
+                            // Jika pilihan tidak valid, beri pesan dan beri kesempatan untuk memasukkan lagi
                             option_invalid();
 
                             goto admin_cmd_option3;
@@ -498,9 +502,10 @@ option:
 
                     printf("\033[33m1. Title\n");
                     printf("\033[33m2. Author\n");
-                    printf("\033[33m3. Num. of pages\n");
-                    printf("\033[33m4. Pub. year\n");
-                    printf("\033[33m5. Quantity\n");
+                    printf("\033[33m3. Publisher\n");
+                    printf("\033[33m4. Num. of pages\n");
+                    printf("\033[33m5. Pub. year\n");
+                    printf("\033[33m6. Quantity\n");
                     printf("\033[0m");
 
                     // Memberikan jarak setelah menampilkan opsi dan membuat garis pemisah
@@ -509,7 +514,7 @@ option:
 
                 modify_options:
                     // Menentukan panjang opsi modifikasi
-                    option_length(5);
+                    option_length(6);
 
                     scanf("%d", &option);
                     printf("\033[0m");
@@ -518,8 +523,8 @@ option:
                     loading(35, win_linux);
 
                     // Memeriksa pilihan opsi modifikasi
-                    if (option >= 1 && option <= 5)
-                    {   
+                    if (option >= 1 && option <= 6)
+                    {
                         // Memanggil fungsi untuk memodifikasi buku
                         modify_books(data, book_id, books_size, option, numof_trials);
                     }
@@ -654,7 +659,7 @@ option:
             fclose(input_fp);
 
             system_clear(win_linux);
-            
+          
             // Jika percobaan masih kurang dari 3
             if (numof_trials < 3)
             {
@@ -674,7 +679,7 @@ option:
 
                 login_end();
 
-                // Jeda selama 3 detik sebelum membersihkan layar dan keluar dari program 
+                // Jeda selama 3 detik sebelum membersihkan layar dan keluar dari program
                 timesleep(3, "FALSE", win_linux);
                 system_clear(win_linux);
 
@@ -760,7 +765,7 @@ option:
             option_length(6); // Menentukan panjang opsi
 
             // Membaca opsi yang dimasukkan pengguna
-            scanf("%d", &option); 
+            scanf("%d", &option);
             printf("\033[0m");
 
             // Memeriksa apakah opsi yang dimasukan berada dalam rentang yang valid
@@ -770,7 +775,7 @@ option:
                 loading(35, win_linux);
 
                 if (option == 1)
-                {   
+                {
                     // Inisialisasi ulang jumlah percobaan dan variabel yang berhubungan dengan buku
                     numof_trials = 0;
                     books_size = 0;
@@ -788,7 +793,7 @@ option:
 
                     printf("\033[33m");
                     table_border("TRUE");
-                    printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Pages", "Year", "Available");
+                    printf("| %-5s | %-27s | %-27s | %-25s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Publisher", "Pages", "Year", "Available");
                     table_border("TRUE");
                     printf("\033[0m");
 
@@ -1023,7 +1028,7 @@ option:
                     // Menampilkan daftar buku yang sedang dipinjam oleh pengguna
                     printf("\033[33m");
                     table_border("TRUE");
-                    printf("| %-5s | %-47s | %-35s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Pages", "Year", "Quantity");
+                    printf("| %-5s | %-27s | %-27s | %-25s | %-11s | %-11s | %-11s |\n", "ID", "Title", "Author", "Publisher", "Pages", "Year", "Quantity");
                     table_border("TRUE");
                     printf("\033[0m");
 

@@ -20,7 +20,7 @@ void books_available(book data[])
 
     for (int index = 0; fgets(books, sizeof(books), input_fp) != NULL; index++)
     {
-        sscanf(books, "%u \"%[^\"]\" \"%[^\"]\" %u %u %u", &data[index].id, data[index].title, data[index].author, &data[index].page, &data[index].pub_year, &data[index].available);
+        sscanf(books, "%u \"%[^\"]\" \"%[^\"]\" \"%[^\"]\" %u %u %u", &data[index].id, data[index].title, data[index].author, data[index].publisher, &data[index].page, &data[index].pub_year, &data[index].available);
     }
 
     fclose(input_fp);
@@ -31,7 +31,7 @@ void books_available(book data[])
 void table_row(book data[], int index)
 {
     printf("\033[33m");
-    printf("| %-5u | %-47s | %-35s | %-11u | %-11u | %-11u |\n", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, data[index].available);
+    printf("| %-5u | %-27s | %-27s | %-25s | %-11u | %-11u | %-11u |\n", data[index].id, data[index].title, data[index].author, data[index].publisher, data[index].page, data[index].pub_year, data[index].available);
     printf("\033[0m");
 }
 
@@ -40,7 +40,7 @@ void table_row(book data[], int index)
 void onloan_table_row(book data[], int index)
 {
     printf("\033[33m");
-    printf("| %-5u | %-47s | %-35s | %-11u | %-11u | %-11u |\n", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, 1);
+    printf("| %-5u | %-27s | %-27s | %-25s | %-11u | %-11u | %-11u |\n", data[index].id, data[index].title, data[index].author, data[index].publisher, data[index].page, data[index].pub_year, 1);
     printf("\033[0m");
 }
 
@@ -51,9 +51,11 @@ void table_border(char *enter)
     printf("\033[1;33m+");
     hyphen("\033[1;33m", 5, 2, "FALSE");
     printf("\033[1;33m+");
-    hyphen("\033[1;33m", 50, 0, "FALSE");
+    hyphen("\033[1;33m", 28, 2, "FALSE");
     printf("\033[1;33m+");
-    hyphen("\033[1;33m", 36, 1, "FALSE");
+    hyphen("\033[1;33m", 28, 2, "FALSE");
+    printf("\033[1;33m+");
+    hyphen("\033[1;33m", 26, 1, "FALSE");
     printf("\033[1;33m+");
     hyphen("\033[1;33m", 14, 0, "FALSE");
     printf("\033[1;33m+");
@@ -137,13 +139,13 @@ void book_status(char *win_linux, int option)
 
 // print to file (added books) function
 // Fungsi untuk menambahkan data buku ke file "books.txt".
-void add_books(unsigned int id, char title[], char author[], unsigned int page, unsigned int pub_year, unsigned int quantity, char *win_linux)
+void add_books(unsigned int id, char title[], char author[], char publisher[], unsigned int page, unsigned int pub_year, unsigned int quantity, char *win_linux)
 {
     FILE *output_fp;
 
     output_fp = fopen("books.txt", "a");
 
-    fprintf(output_fp, "\n%u \"%s\" \"%s\" %u %u %u", id, title, author, page, pub_year, quantity);
+    fprintf(output_fp, "\n%u \"%s\" \"%s\" \"%s\" %u %u %u", id, title, author, publisher, page, pub_year, quantity);
 
     timesleep(1, "TRUE", win_linux);
 
@@ -168,7 +170,7 @@ void delete_books(book data[], unsigned int book_id, int books_size, char *win_l
     {
         if (data[index].id != book_id)
         {
-            fprintf(output_fp, "%u \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, data[index].available);
+            fprintf(output_fp, "%u \"%s\" \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].publisher, data[index].page, data[index].pub_year, data[index].available);
 
             if (index < (books_size - 1))
             {
@@ -259,6 +261,37 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
     {
         numof_trials = 0;
 
+        char publisher[128];
+
+        header();
+
+        printf("\033[1;33mModify publisher");
+        printf("\033[0m");
+        enter(1);
+
+        printf("\033[33mNew publisher: ");
+        scanf(" %[^\n]s", publisher);
+        enter(1);
+        printf("\033[0m");
+
+        for (int index = 0; index < books_size; index++)
+        {
+            if (data[index].id == book_id)
+            {
+                strcpy(data[index].publisher, publisher);
+
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+    else if (option == 4)
+    {
+        numof_trials = 0;
+
         unsigned int numof_pages;
 
         header();
@@ -286,7 +319,7 @@ void modify_books(book data[], unsigned int book_id, int books_size, int option,
             }
         }
     }
-    else if (option == 4)
+    else if (option == 5)
     {
         numof_trials = 0;
 
@@ -367,7 +400,7 @@ void print_newlist(book data[], char *account_id, int books_size, int temp_index
 
     for (int index = 0; index < books_size; index++)
     {
-        fprintf(output_fp, "%u \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, data[index].available);
+        fprintf(output_fp, "%u \"%s\" \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].publisher, data[index].page, data[index].pub_year, data[index].available);
 
         if (index < (books_size - 1))
         {
@@ -392,7 +425,7 @@ void print_books(book data[], int books_size)
 
     for (int index = 0; index < books_size; index++)
     {
-        fprintf(output_fp, "%u \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].page, data[index].pub_year, data[index].available);
+        fprintf(output_fp, "%u \"%s\" \"%s\" \"%s\" %u %u %u", data[index].id, data[index].title, data[index].author, data[index].publisher, data[index].page, data[index].pub_year, data[index].available);
 
         if (index < (books_size - 1))
         {
